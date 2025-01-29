@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Alumno;
+use App\Models\Profesor;
+use App\Models\Reclutador;
+use App\Models\Encargado;
+use App\Models\SinRol;
 
 class UserController extends Controller
 {
@@ -52,6 +57,10 @@ class UserController extends Controller
             'NIF'=>$request->NIF,
         ]);
 
+        $sinrol=SinRol::create([
+            'user_id'=>$user->id
+        ]);
+
         return response()->json(
             ['data'=>[
                 //'token'=> $user->createToken('token')->plainTextToken,
@@ -70,6 +79,44 @@ class UserController extends Controller
             ['data'=>[
                 //'token'=> $user->createToken('token')->plainTextToken,
                 'user'=> $user
+            ],
+            ],200);
+    }
+
+    public function showForUsername(string $username)
+    {
+        $user=User::where('username','like',$username)->firstOrFail();
+        $alumno=Alumno::where('user_id','like',$user->id)->get();
+        $profesor=Profesor::where('user_id','like',$user->id)->get();
+        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
+        $encargado=Encargado::where('user_id','like',$user->id)->get();
+
+        $alumnoEs=0;
+        $profesorEs=0;
+        $reclutadorEs=0;
+        $encargadoEs=0;
+
+        if(count($alumno)>=1){
+            $alumnoEs=1;
+        }
+        if(count($profesor)>=1){
+            $profesorEs=1;
+        }
+        if(count($reclutador)>=1){
+            $reclutadorEs=1;
+        }
+        if(count($encargado)>=1){
+            $encargadoEs=1;
+        }
+
+        return response()->json(
+            ['data'=>[
+                //'token'=> $user->createToken('token')->plainTextToken,
+                'user'=> $user,
+                'alumno'=>$alumnoEs,
+                'profesor'=> $profesorEs,
+                'reclutador'=>$reclutadorEs,
+                'encargado'=>$encargadoEs
             ],
             ],200);
     }

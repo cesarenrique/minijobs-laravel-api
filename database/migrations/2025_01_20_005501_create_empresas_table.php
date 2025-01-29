@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('NIF');
             $table->string('logo');
             $table->string('nombre');
+            $table->string('email');
+            $table->string('tamanyo');
+            $table->string('verificada')->nullable();
             $table->unsignedBigInteger('encargado_id')->unique();
             $table->foreign('encargado_id')->references('id')->on('encargados');
             $table->timestamps();

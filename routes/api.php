@@ -21,6 +21,8 @@ Route::get('/reclutador/complete',[ReclutadorController::class,'indexComplete'])
 Route::get('/administrador/complete',[AdministradorController::class,'indexComplete']);
 Route::get('/sinrol/complete',[SinRolController::class,'indexComplete']);
 
+
+
 Route::resource('/user', UserController::class);
 Route::resource('/encargado', EncargadoController::class);
 Route::resource('/administrador', AdministradorController::class);
@@ -28,4 +30,6 @@ Route::resource('/reclutador', ReclutadorController::class);
 Route::resource('/profesor', ProfesorController::class);
 Route::resource('/alumno', AlumnoController::class);
 Route::resource('/sinrol', SinRolController::class);
+
+Route::get('/user/username/{username}', [UserController::class,'showForUsername']);
 
