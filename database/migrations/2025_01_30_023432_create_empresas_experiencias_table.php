@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cargos', function (Blueprint $table) {
+        Schema::create('empresas_experiencias', function (Blueprint $table) {
             $table->id();
-            $table->string("titulo");
-            $table->text("descripcion");
+            $table->string('nombre')->unique();
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cargos');
+        Schema::dropIfExists('empresas_experiencias');
     }
 };

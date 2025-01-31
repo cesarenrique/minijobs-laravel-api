@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('NIF')->unique();
             $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->integer('ultimo_rol');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

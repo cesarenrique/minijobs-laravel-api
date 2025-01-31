@@ -10,6 +10,7 @@ use App\Models\Profesor;
 use App\Models\Reclutador;
 use App\Models\Encargado;
 use App\Models\SinRol;
+use App\Models\Administrador;
 
 class UserController extends Controller
 {
@@ -21,7 +22,10 @@ class UserController extends Controller
         //
         $users=User::All();
         return response()->json([
-            'data'=> $users],200);
+            'data'=> [
+                'users'=>$users
+                ]
+        ],200);
 
     }
 
@@ -55,6 +59,7 @@ class UserController extends Controller
             'email'=>$request->email,
             'password'=>$hashed,
             'NIF'=>$request->NIF,
+            'ultimo_rol'=>0,
         ]);
 
         $sinrol=SinRol::create([
@@ -63,7 +68,7 @@ class UserController extends Controller
 
         return response()->json(
             ['data'=>[
-                //'token'=> $user->createToken('token')->plainTextToken,
+
                 'user'=> $user
             ],
             ],200);
@@ -75,26 +80,16 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user=User::findOrFail($id);
-        return response()->json(
-            ['data'=>[
-                //'token'=> $user->createToken('token')->plainTextToken,
-                'user'=> $user
-            ],
-            ],200);
-    }
-
-    public function showForUsername(string $username)
-    {
-        $user=User::where('username','like',$username)->firstOrFail();
         $alumno=Alumno::where('user_id','like',$user->id)->get();
         $profesor=Profesor::where('user_id','like',$user->id)->get();
         $reclutador=Reclutador::where('user_id','like',$user->id)->get();
         $encargado=Encargado::where('user_id','like',$user->id)->get();
-
+        $administrador=Administrador::where('user_id','like',$user->id)->get();
         $alumnoEs=0;
         $profesorEs=0;
         $reclutadorEs=0;
         $encargadoEs=0;
+        $administradorEs=0;
 
         if(count($alumno)>=1){
             $alumnoEs=1;
@@ -108,19 +103,124 @@ class UserController extends Controller
         if(count($encargado)>=1){
             $encargadoEs=1;
         }
+        if(count($administrador)>=1){
+            $administradorEs=1;
+        }
 
         return response()->json(
             ['data'=>[
-                //'token'=> $user->createToken('token')->plainTextToken,
                 'user'=> $user,
                 'alumno'=>$alumnoEs,
                 'profesor'=> $profesorEs,
                 'reclutador'=>$reclutadorEs,
-                'encargado'=>$encargadoEs
+                'encargado'=>$encargadoEs,
+                'administrador'=>$administradorEs
             ],
             ],200);
     }
 
+     /**
+     * Display the specified resource.
+     */
+    public function login(string $id)
+    {
+        $user=User::findOrFail($id);
+        $alumno=Alumno::where('user_id','like',$user->id)->get();
+        $profesor=Profesor::where('user_id','like',$user->id)->get();
+        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
+        $encargado=Encargado::where('user_id','like',$user->id)->get();
+        $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $alumnoEs=0;
+        $profesorEs=0;
+        $reclutadorEs=0;
+        $encargadoEs=0;
+        $administradorEs=0;
+
+        if(count($alumno)>=1){
+            $alumnoEs=1;
+        }
+        if(count($profesor)>=1){
+            $profesorEs=1;
+        }
+        if(count($reclutador)>=1){
+            $reclutadorEs=1;
+        }
+        if(count($encargado)>=1){
+            $encargadoEs=1;
+        }
+        if(count($administrador)>=1){
+            $administradorEs=1;
+        }
+
+        return response()->json(
+            ['data'=>[
+                'user'=> $user,
+                'alumno'=>$alumnoEs,
+                'profesor'=> $profesorEs,
+                'reclutador'=>$reclutadorEs,
+                'encargado'=>$encargadoEs,
+                'administrador'=>$administradorEs
+            ],
+            ],200);
+    }
+
+
+    public function showForUsername(string $username)
+    {
+        $user=User::where('username','like',$username)->firstOrFail();
+        $alumno=Alumno::where('user_id','like',$user->id)->get();
+        $profesor=Profesor::where('user_id','like',$user->id)->get();
+        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
+        $encargado=Encargado::where('user_id','like',$user->id)->get();
+        $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $alumnoEs=0;
+        $profesorEs=0;
+        $reclutadorEs=0;
+        $encargadoEs=0;
+        $administradorEs=0;
+        if(count($alumno)>=1){
+            $alumnoEs=1;
+        }
+        if(count($profesor)>=1){
+            $profesorEs=1;
+        }
+        if(count($reclutador)>=1){
+            $reclutadorEs=1;
+        }
+        if(count($encargado)>=1){
+            $encargadoEs=1;
+        }
+        if(count($administrador)>=1){
+            $administradorEs=1;
+        }
+
+        return response()->json(
+            ['data'=>[
+
+                'user'=> $user,
+                'alumno'=>$alumnoEs,
+                'profesor'=> $profesorEs,
+                'reclutador'=>$reclutadorEs,
+                'encargado'=>$encargadoEs,
+                'administrador'=>$administradorEs
+            ],
+            ],200);
+    }
+
+    public function updateUltimoRol($id,$rol)
+    {
+        $user=$existe->firstOrFail();
+
+        $user->ultimo_rol=$rol;
+
+        $user->update();
+
+        return response()->json(
+            ['data'=>[
+                'user'=> $user,
+            ],
+            ],200);
+    }
     /**
      * Show the form for editing the specified resource.
      */

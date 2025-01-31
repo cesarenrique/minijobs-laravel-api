@@ -60,15 +60,7 @@ class ProfesorController extends Controller
             'user_id'=>'required'
         ]);
 
-        $existe=User::where('id',$request->user_id)->get();
-
-        if(count($existe)<1){
-            return response()->json(
-                ['data'=>[
-
-                     ],
-                ],404);
-        }
+        $user=User::findOrFail($request->user_id);
 
         $existe2=SinRol::where('user_id',$request->user_id)->get();
 
@@ -79,6 +71,10 @@ class ProfesorController extends Controller
         $profesor=Profesor::create([
             'user_id'=>$request->user_id
         ]);
+
+        $user->ultimo_rol=2;
+
+        $user->update();
 
         return response()->json(
             ['data'=>[

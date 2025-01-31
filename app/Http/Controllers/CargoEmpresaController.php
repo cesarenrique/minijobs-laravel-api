@@ -3,39 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Encargado;
-use App\Models\User;
-use App\Models\SinRol;
+use App\Models\CargoEmpresa;
 
-class EncargadoController extends Controller
+class CargoEmpresaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $encargados=Encargado::All();
-        return response()->json(
-            ['data'=>[
-                'encargados'=> $encargados
-                 ],
-            ],200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function indexComplete()
-    {
         //
-        $encargados=Encargado::All();
-        $usuarios=[];
-        foreach($encargados as $encargado){
-            $usuarios[]=$encargado->user;
-        }
+        $cargoEmpresas=CargoEmpresa::All();
         return response()->json(
             ['data'=>[
-                'encargados'=> $usuarios
+                'cargoEmpresas'=> $cargoEmpresas
                  ],
             ],200);
     }
@@ -55,29 +36,22 @@ class EncargadoController extends Controller
     {
         //
         $validated=$request->validate([
-            'user_id'=>'required'
+            'cargo_id'=>'required',
+            'empresa_id'=>'required',
+
         ]);
 
-        $user=User::findOrFail($request->user_id);
+        $cargoEmpresa=CargoEmpresa::create([
+            'cargo_id'=>$request->cargo_id,
+            'empresa_id'=>$request->empresa_id,
 
-        $existe2=SinRol::where('user_id',$request->user_id)->get();
-
-        if(count($existe2)>=1){
-            $existe2->first()->delete();
-        }
-
-        $encargado=Encargado::create([
-            'user_id'=>$request->user_id
         ]);
 
-        $user->ultimo_rol=4;
-
-        $user->update();
 
         return response()->json(
             ['data'=>[
-                'encargado'=> $encargado
-                 ],
+                'cargoEmpresa'=> $cargoEmpresa
+            ],
             ],200);
     }
 
@@ -87,6 +61,12 @@ class EncargadoController extends Controller
     public function show(string $id)
     {
         //
+        $cargoEmpresa=CargoEmpresa::findOrFail($id);
+        return response()->json(
+            ['data'=>[
+                'cargoEmpresa'=> $cargoEmpresa
+                 ],
+            ],200);
     }
 
     /**

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('tamanyo');
             $table->string('verificada')->nullable();
-            $table->unsignedBigInteger('encargado_id')->unique();
+            $table->unsignedBigInteger('encargado_id');
             $table->foreign('encargado_id')->references('id')->on('encargados');
             $table->timestamps();
         });

@@ -59,15 +59,7 @@ class ReclutadorController extends Controller
             'user_id'=>'required'
         ]);
 
-        $existe=User::where('id',$request->user_id)->get();
-
-        if(count($existe)<1){
-            return response()->json(
-                ['data'=>[
-
-                     ],
-                ],404);
-        }
+        $user=User::findOrFail($request->user_id);
 
         $existe2=SinRol::where('user_id',$request->user_id)->get();
 
@@ -79,6 +71,10 @@ class ReclutadorController extends Controller
         $reclutador=Reclutador::create([
             'user_id'=>$request->user_id
         ]);
+
+        $user->ultimo_rol=3;
+
+        $user->update();
 
         return response()->json(
             ['data'=>[

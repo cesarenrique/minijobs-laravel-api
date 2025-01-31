@@ -22,6 +22,7 @@ class UserTestSeeder extends Seeder
             'NIF'=>'50380203Z',
             'email'=>'administrador@gmail.com',
             'password'=>$hashed,
+            'ultimo_rol'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -33,6 +34,7 @@ class UserTestSeeder extends Seeder
             'NIF'=>'50380204Z',
             'email'=>'alumno@gmail.com',
             'password'=>$hashed,
+            'ultimo_rol'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -44,6 +46,7 @@ class UserTestSeeder extends Seeder
             'NIF'=>'50380205Z',
             'email'=>'profesor@gmail.com',
             'password'=>$hashed,
+            'ultimo_rol'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -55,6 +58,7 @@ class UserTestSeeder extends Seeder
             'NIF'=>'50380206Z',
             'email'=>'encargado@gmail.com',
             'password'=>$hashed,
+            'ultimo_rol'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -66,6 +70,7 @@ class UserTestSeeder extends Seeder
             'NIF'=>'50380207Z',
             'email'=>'reclutador@gmail.com',
             'password'=>$hashed,
+            'ultimo_rol'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -78,6 +83,7 @@ class UserTestSeeder extends Seeder
             'NIF'=>'50380208Z',
             'email'=>'muestra@gmail.com',
             'password'=>$hashed,
+            'ultimo_rol'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()

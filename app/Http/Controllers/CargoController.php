@@ -3,39 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Encargado;
-use App\Models\User;
-use App\Models\SinRol;
+use App\Models\Cargo;
 
-class EncargadoController extends Controller
+class CargoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $encargados=Encargado::All();
-        return response()->json(
-            ['data'=>[
-                'encargados'=> $encargados
-                 ],
-            ],200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function indexComplete()
-    {
         //
-        $encargados=Encargado::All();
-        $usuarios=[];
-        foreach($encargados as $encargado){
-            $usuarios[]=$encargado->user;
-        }
+        $cargos=Cargo::All();
         return response()->json(
             ['data'=>[
-                'encargados'=> $usuarios
+                'cargos'=> $cargos
                  ],
             ],200);
     }
@@ -55,29 +36,21 @@ class EncargadoController extends Controller
     {
         //
         $validated=$request->validate([
-            'user_id'=>'required'
+            'titulo'=>'required|min:5|max:80',
+            'descripcion'=>'required',
         ]);
 
-        $user=User::findOrFail($request->user_id);
+        $cargo=Cargo::create([
+            'titulo'=>$request->titulo,
+            'descripcion'=>$request->descripcion,
 
-        $existe2=SinRol::where('user_id',$request->user_id)->get();
-
-        if(count($existe2)>=1){
-            $existe2->first()->delete();
-        }
-
-        $encargado=Encargado::create([
-            'user_id'=>$request->user_id
         ]);
 
-        $user->ultimo_rol=4;
-
-        $user->update();
 
         return response()->json(
             ['data'=>[
-                'encargado'=> $encargado
-                 ],
+                'cargo'=> $cargo
+            ],
             ],200);
     }
 
@@ -87,6 +60,12 @@ class EncargadoController extends Controller
     public function show(string $id)
     {
         //
+        $cargo=Cargo::findOrFail($id);
+        return response()->json(
+            ['data'=>[
+                'cargo'=> $cargo
+                 ],
+            ],200);
     }
 
     /**

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Anuncio;
+use App\Models\CargoEmpresa;
+use App\Models\Cargo;
 use App\Models\Empresa;
-class EmpresaController extends Controller
+class AnuncioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,14 +15,12 @@ class EmpresaController extends Controller
     public function index()
     {
         //
-        $empresas=Empresa::All();
-
+        $anuncios=Anuncio::All();
         return response()->json(
             ['data'=>[
-                'empresas'=> $empresas
+                'anuncios'=> $anuncios
                  ],
             ],200);
-
     }
 
     /**
@@ -35,33 +36,29 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
+        //
+
         $validated=$request->validate([
-            'nombre'=>'required|max:50',
-            'tamanyo'=>'required',
-            'email'=>'required|email|max:60',
-            'NIF'=>'required|min:8',
-            'encargado_id'=>'required'
+            'titulo'=>'required|min:5|max:80',
+            'descripcion'=>'required',
+            'estado'=>'required',
+            'inicio'=>'required',
+            'cargo_empresa_id'=>'required',
         ]);
 
-        $logo="https//www.google.com";
-        $empresa=Empresa::create([
-            'logo'=>$logo,
-            'nombre'=>$request->nombre,
-            'email'=>$request->email,
-            'tamanyo'=>$request->tamanyo,
-            'NIF'=>$request->NIF,
-            'encargado_id'=>$request->encargado_id
+        $anuncio=Anuncio::create([
+            'titulo'=>$request->titulo,
+            'descripcion'=>$request->descripcion,
+            'estado'=>$request->estado,
+            'inicio'=>$request->inicio,
+            'cargo_empresa_id'=>$request->cargo_empresa_id,
+
         ]);
 
-        /*
-        $sinrol=SinRol::create([
-            'user_id'=>$user->id
-        ]);*/
 
         return response()->json(
             ['data'=>[
-                //'token'=> $user->createToken('token')->plainTextToken,
-                'empresa'=> $empresa
+                'anuncio'=> $anuncio
             ],
             ],200);
     }
@@ -72,10 +69,29 @@ class EmpresaController extends Controller
     public function show(string $id)
     {
         //
-        $empresa=Empresa::findOrFail($id);
+        $anuncio=Anuncio::findOrFail($id);
+        return response()->json(
+            ['data'=>[
+                'anuncio'=> $anuncio
+                 ],
+            ],200);
+    }
+
+        /**
+     * Display the specified resource.
+     */
+    public function showComplete(string $id)
+    {
+        //
+        $anuncio=Anuncio::findOrFail($id);
+        $cargoEmpresa=CargoEmpresa::findOrFail($anuncio->cargo_empresa_id);
+        $cargo=Cargo::findOrFail($cargoEmpresa->cargo_id);
+        $empresa=Empresa::findOrFail($cargoEmpresa->empresa_id);
 
         return response()->json(
             ['data'=>[
+                'anuncio'=> $anuncio,
+                'cargo'=> $cargo,
                 'empresa'=> $empresa
                  ],
             ],200);
