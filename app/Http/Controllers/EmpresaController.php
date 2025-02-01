@@ -81,6 +81,21 @@ class EmpresaController extends Controller
             ],200);
     }
 
+        /**
+     * Display the specified resource.
+     */
+    public function showEncargadoEmpresas(string $idEncargado)
+    {
+        //
+        $empresas=Empresa::where('encargado_id','like',$idEncargado)->get();
+
+        return response()->json(
+            ['data'=>[
+                'empresas'=> $empresas
+                 ],
+            ],200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

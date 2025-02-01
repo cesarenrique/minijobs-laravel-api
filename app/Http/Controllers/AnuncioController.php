@@ -44,6 +44,7 @@ class AnuncioController extends Controller
             'estado'=>'required',
             'inicio'=>'required',
             'cargo_empresa_id'=>'required',
+            'reclutador_id'=>'required',
         ]);
 
         $anuncio=Anuncio::create([
@@ -52,7 +53,7 @@ class AnuncioController extends Controller
             'estado'=>$request->estado,
             'inicio'=>$request->inicio,
             'cargo_empresa_id'=>$request->cargo_empresa_id,
-
+            'reclutador_id'=>$request->reclutador_id,
         ]);
 
 

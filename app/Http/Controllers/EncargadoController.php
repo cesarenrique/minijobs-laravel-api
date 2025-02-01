@@ -90,6 +90,37 @@ class EncargadoController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function showUser(string $idUser)
+    {
+        //
+
+        $encargado=Encargado::where('user_id','like',$idUser)->firstOrFail();
+        return response()->json(
+            ['data'=>[
+                'encargado'=> $encargado
+                 ],
+            ],200);
+    }
+
+        /**
+     * Display the specified resource.
+     */
+    public function showUserComplete(string $idEncargado)
+    {
+        //
+
+        $encargado=Encargado::findOrFail($idEncargado);
+        $user=User::findOrFail($encargado->user_id);
+        return response()->json(
+            ['data'=>[
+                'user'=> $user
+                 ],
+            ],200);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)

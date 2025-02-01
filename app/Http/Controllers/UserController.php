@@ -119,50 +119,6 @@ class UserController extends Controller
             ],200);
     }
 
-     /**
-     * Display the specified resource.
-     */
-    public function login(string $id)
-    {
-        $user=User::findOrFail($id);
-        $alumno=Alumno::where('user_id','like',$user->id)->get();
-        $profesor=Profesor::where('user_id','like',$user->id)->get();
-        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
-        $encargado=Encargado::where('user_id','like',$user->id)->get();
-        $administrador=Administrador::where('user_id','like',$user->id)->get();
-        $alumnoEs=0;
-        $profesorEs=0;
-        $reclutadorEs=0;
-        $encargadoEs=0;
-        $administradorEs=0;
-
-        if(count($alumno)>=1){
-            $alumnoEs=1;
-        }
-        if(count($profesor)>=1){
-            $profesorEs=1;
-        }
-        if(count($reclutador)>=1){
-            $reclutadorEs=1;
-        }
-        if(count($encargado)>=1){
-            $encargadoEs=1;
-        }
-        if(count($administrador)>=1){
-            $administradorEs=1;
-        }
-
-        return response()->json(
-            ['data'=>[
-                'user'=> $user,
-                'alumno'=>$alumnoEs,
-                'profesor'=> $profesorEs,
-                'reclutador'=>$reclutadorEs,
-                'encargado'=>$encargadoEs,
-                'administrador'=>$administradorEs
-            ],
-            ],200);
-    }
 
 
     public function showForUsername(string $username)
@@ -207,9 +163,133 @@ class UserController extends Controller
             ],200);
     }
 
+    public function login(Request $request)
+    {
+        $validated=$request->validate([
+            'username'=>'required|min:5|max:30',
+            'password'=>'required|min:8',
+
+        ]);
+
+        $username=$request->username;
+        $user="";
+        if(str_contains($username,'@')){
+
+
+            $user=User::where('email','like',$username)->firstOrFail();
+        }else{
+
+            $user=User::where('username','like',$username)->firstOrFail();
+        }
+
+        $hashed=Hash::check($request->password,$user->password);
+        if(!$hashed){
+            return response()->json([
+                'data'=> [
+                    'error'=>'contraseña no es'
+                    ]
+            ],200);
+        }
+
+
+        $alumno=Alumno::where('user_id','like',$user->id)->get();
+        $profesor=Profesor::where('user_id','like',$user->id)->get();
+        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
+        $encargado=Encargado::where('user_id','like',$user->id)->get();
+        $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $alumnoEs=0;
+        $profesorEs=0;
+        $reclutadorEs=0;
+        $encargadoEs=0;
+        $administradorEs=0;
+        if(count($alumno)>=1){
+            $alumnoEs=1;
+        }
+        if(count($profesor)>=1){
+            $profesorEs=1;
+        }
+        if(count($reclutador)>=1){
+            $reclutadorEs=1;
+        }
+        if(count($encargado)>=1){
+            $encargadoEs=1;
+        }
+        if(count($administrador)>=1){
+            $administradorEs=1;
+        }
+
+        return response()->json(
+            ['data'=>[
+
+                'user'=> $user,
+                'alumno'=>$alumnoEs,
+                'profesor'=> $profesorEs,
+                'reclutador'=>$reclutadorEs,
+                'encargado'=>$encargadoEs,
+                'administrador'=>$administradorEs
+            ],
+            ],200);
+    }
+
+
+    public function logout(Request $request)
+    {
+        $validated=$request->validate([
+            'username'=>'required|min:5|max:30',
+        ]);
+
+        $username=$request->username;
+        $user="";
+        if(str_contains($username,'@')){
+
+            $user=User::where('email','like',$username)->firstOrFail();
+        }else{
+            $user=User::where('username','like',$username)->firstOrFail();
+        }
+
+
+        $alumno=Alumno::where('user_id','like',$user->id)->get();
+        $profesor=Profesor::where('user_id','like',$user->id)->get();
+        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
+        $encargado=Encargado::where('user_id','like',$user->id)->get();
+        $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $alumnoEs=0;
+        $profesorEs=0;
+        $reclutadorEs=0;
+        $encargadoEs=0;
+        $administradorEs=0;
+        if(count($alumno)>=1){
+            $alumnoEs=1;
+        }
+        if(count($profesor)>=1){
+            $profesorEs=1;
+        }
+        if(count($reclutador)>=1){
+            $reclutadorEs=1;
+        }
+        if(count($encargado)>=1){
+            $encargadoEs=1;
+        }
+        if(count($administrador)>=1){
+            $administradorEs=1;
+        }
+
+        return response()->json(
+            ['data'=>[
+
+                'user'=> $user,
+                'alumno'=>$alumnoEs,
+                'profesor'=> $profesorEs,
+                'reclutador'=>$reclutadorEs,
+                'encargado'=>$encargadoEs,
+                'administrador'=>$administradorEs
+            ],
+            ],200);
+    }
+
     public function updateUltimoRol($id,$rol)
     {
-        $user=$existe->firstOrFail();
+        $user=User::findOrFail($id);
 
         $user->ultimo_rol=$rol;
 

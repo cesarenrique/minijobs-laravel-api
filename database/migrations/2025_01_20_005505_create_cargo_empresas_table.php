@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('empresa_id');
             $table->unsignedBigInteger('cargo_id');
-            $table->unique('cargo_id','empresa_id');
             $table->foreign('cargo_id')->references('id')->on('cargos');
             $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->timestamps();

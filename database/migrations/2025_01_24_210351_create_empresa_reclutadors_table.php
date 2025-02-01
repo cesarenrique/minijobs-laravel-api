@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('reclutador_id');
             $table->unsignedBigInteger('empresa_id');
-            $table->unique('reclutador_id','empresa_id');
+            $table->unique(['reclutador_id','empresa_id']);
             $table->foreign('reclutador_id')->references('id')->on('reclutadors');
-            $table->foreign('empresa_id')->references('id')->on('empresas'); 
+            $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->timestamps();
         });
     }

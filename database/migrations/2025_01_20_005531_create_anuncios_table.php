@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('inicio');
             $table->unsignedBigInteger('cargo_empresa_id');
             $table->foreign('cargo_empresa_id')->references('id')->on('cargo_empresas');
+            $table->unsignedBigInteger('reclutador_id');
+            $table->foreign('reclutador_id')->references('id')->on('reclutadors');
             $table->timestamps();
         });
     }

@@ -91,6 +91,37 @@ class ReclutadorController extends Controller
         //
     }
 
+        /**
+     * Display the specified resource.
+     */
+    public function showUser(string $idUser)
+    {
+        //
+
+        $reclutador=Reclutador::where('user_id','like',$idUser)->firstOrFail();
+        return response()->json(
+            ['data'=>[
+                'reclutador'=> $reclutador
+                 ],
+            ],200);
+    }
+
+        /**
+     * Display the specified resource.
+     */
+    public function showUserComplete(string $idReclutador)
+    {
+        //
+
+        $reclutador=Reclutador::findOrFail($idReclutador);
+        $user=User::findOrFail($reclutador->user_id);
+        return response()->json(
+            ['data'=>[
+                'user'=> $user
+                 ],
+            ],200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

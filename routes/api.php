@@ -16,6 +16,7 @@ use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\EmpresaCargoController;
 use App\Http\Controllers\EmpresaAnuncioController;
 use App\Http\Controllers\CargoEmpresaAnuncioController;
+use App\Http\Controllers\EmpresaReclutadorController;
 /*
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,8 +32,19 @@ Route::get('/empresa/{id}/cargo', [EmpresaCargoController::class,'indexCargos'])
 Route::get('/empresa/{id}/anuncio', [EmpresaAnuncioController::class,'indexAnuncios']);
 Route::get('/empresa/{empresa}/cargo/{id}/anuncio', [CargoEmpresaAnuncioController::class,'indexAnuncios']);
 Route::get('/anuncio/{id}/complete', [AnuncioController::class,'showComplete']);
-Route::get('/user/{id}/login', [UserController::class,'login']);
+
+Route::post('/user/login', [UserController::class,'login']);
+Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}/updateUltimoRol/{rol}', [UserController::class,'updateUltimoRol']);
+
+Route::get('/encargado/{idEncargado}/user', [EncargadoController::class,'showUserComplete']);
+Route::get('/encargado/user/{idUser}', [EncargadoController::class,'showUser']);
+Route::get('/encargado/{idEncargado}/empresa', [EmpresaController::class,'showEncargadoEmpresas']);
+
+Route::get('/reclutador/{idReclutador}/user', [ReclutadorController::class,'showUserComplete']);
+Route::get('/reclutador/user/{idUser}', [ReclutadorController::class,'showUser']);
+Route::get('/empresareclutador/existe/{idEmpresa}/{idReclutador}', [EmpresaReclutadorController::class,'showExiste']);
+Route::get('/cargoempresa/existe/{idEmpresa}/{idCargo}', [CargoEmpresaController::class,'showExiste']);
 
 Route::resource('/user', UserController::class);
 Route::resource('/encargado', EncargadoController::class);
@@ -45,7 +57,7 @@ Route::resource('/empresa', EmpresaController::class);
 Route::resource('/cargo', CargoController::class);
 Route::resource('/cargoempresa', CargoEmpresaController::class);
 Route::resource('/anuncio', AnuncioController::class);
-
+Route::resource('/empresareclutador', EmpresaReclutadorController::class);
 
 Route::get('/user/username/{username}', [UserController::class,'showForUsername']);
 

@@ -21,6 +21,7 @@ class Anuncio extends Model
         'estado',
         'inicio',
         'cargo_empresa_id',
+        'reclutador_id',
     ];
 
 }

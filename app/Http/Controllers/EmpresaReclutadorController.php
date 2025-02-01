@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CargoEmpresa;
+use App\Models\EmpresaReclutador;
 
-class CargoEmpresaController extends Controller
+class EmpresaReclutadorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +13,10 @@ class CargoEmpresaController extends Controller
     public function index()
     {
         //
-        $cargoEmpresas=CargoEmpresa::All();
+        $empresaReclutadores=EmpresaReclutador::All();
         return response()->json(
             ['data'=>[
-                'cargoEmpresas'=> $cargoEmpresas
+                'empresaReclutadores'=> $empresaReclutadores
                  ],
             ],200);
     }
@@ -36,13 +36,13 @@ class CargoEmpresaController extends Controller
     {
         //
         $validated=$request->validate([
-            'cargo_id'=>'required',
+            'reclutador_id'=>'required',
             'empresa_id'=>'required',
 
         ]);
 
-        $cargoEmpresa=CargoEmpresa::create([
-            'cargo_id'=>$request->cargo_id,
+        $empresaReclutador=EmpresaReclutador::create([
+            'reclutador_id'=>$request->reclutador_id,
             'empresa_id'=>$request->empresa_id,
 
         ]);
@@ -50,7 +50,7 @@ class CargoEmpresaController extends Controller
 
         return response()->json(
             ['data'=>[
-                'cargoEmpresa'=> $cargoEmpresa
+                'empresaReclutador'=> $empresaReclutador
             ],
             ],200);
     }
@@ -61,25 +61,25 @@ class CargoEmpresaController extends Controller
     public function show(string $id)
     {
         //
-        $cargoEmpresa=CargoEmpresa::findOrFail($id);
+        $empresaReclutador=EmpresaReclutador::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'cargoEmpresa'=> $cargoEmpresa
+                'empresaReclutador'=> $empresaReclutador
                  ],
             ],200);
     }
 
-            /**
+        /**
      * Display the specified resource.
      */
-    public function showExiste(string $idEmpresa,string $idCargo)
+    public function showExiste(string $idEmpresa,string $idReclutador)
     {
         //
-        $cargoEmpresa=CargoEmpresa::where('empresa_id','like',$idEmpresa)->where('cargo_id','like',$idCargo)->get();
-        if(count($cargoEmpresa)>=1){
+        $empresaReclutador=EmpresaReclutador::where('empresa_id','like',$idEmpresa)->where('reclutador_id','like',$idReclutador)->get();
+        if(count($empresaReclutador)>=1){
             return response()->json(
                 ['data'=>[
-                    'cargoEmpresa'=> $cargoEmpresa->firstOrFail()
+                    'empresaReclutador'=> $empresaReclutador->firstOrFail()
                      ],
                 ],200);
         }
