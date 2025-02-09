@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Encargado;
 use App\Models\User;
 use App\Models\Empresa;
+use App\Models\Especializada;
+use App\Models\EmpresaEspecializada;
 use App\Models\Cargo;
+use App\Models\Sector;
 use App\Models\CargoEmpresa;
 use App\Models\Reclutador;
 
@@ -23,13 +26,47 @@ class EmpresaSeeder extends Seeder
         //
         $user=User::where('username','like','Encargado')->first();
         $encargado=Encargado::where('user_id','like',$user->id)->first();
-        DB::table('empresas')->insert([
+        $empresa=Empresa::create([
             'encargado_id'=>$encargado->id,
             'logo'=>'https://www.google.es',
             'nombre'=>'Everis',
             'email'=>'cesar@everis.com',
             'NIF'=>'400580200F',
             'tamanyo'=>'10000'
+        ]);
+
+        $sector=Sector::create([
+            'nombre'=>'Informatica'
+        ]);
+
+        $especializada=Especializada::create([
+            'nombre'=>'Aplicaciones Web a medida',
+            'sector_id'=>$sector->id
+        ]);
+
+        $empresaEspecializada=EmpresaEspecializada::create([
+            'empresa_id'=>$empresa->id,
+            'especializada_id'=>$especializada->id
+        ]);
+
+        $especializada=Especializada::create([
+            'nombre'=>'Aplicaciones Movil a medida',
+            'sector_id'=>$sector->id
+        ]);
+
+        $empresaEspecializada=EmpresaEspecializada::create([
+            'empresa_id'=>$empresa->id,
+            'especializada_id'=>$especializada->id
+        ]);
+
+        $especializada=Especializada::create([
+            'nombre'=>'Aplicaciones FullStack a medida',
+            'sector_id'=>$sector->id
+        ]);
+
+        $empresaEspecializada=EmpresaEspecializada::create([
+            'empresa_id'=>$empresa->id,
+            'especializada_id'=>$especializada->id
         ]);
 
         $cargo=Cargo::create([

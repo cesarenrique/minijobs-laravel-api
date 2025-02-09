@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Centro;
+use App\Models\TipoCarrera;
 
-class CentroController extends Controller
+class TipoCarreraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +13,10 @@ class CentroController extends Controller
     public function index()
     {
         //
-        $centros=Centro::All();
+        $tipoCarreras=TipoCarrera::All();
         return response()->json(
             ['data'=>[
-                'centros'=> $centros
+                'tipoCarreras'=> $tipoCarreras
                  ],
             ],200);
     }
@@ -35,24 +35,6 @@ class CentroController extends Controller
     public function store(Request $request)
     {
         //
-
-        $validated=$request->validate([
-            'nombre'=>'required',
-            'anyo_plan_academico_id'=>'required'
-        ]);
-
-        $centro=Centro::create([
-            'nombre'=>$request->nombre,
-            'anyo_plan_academico_id'=>$request->anyo_plan_academico_id,
-
-        ]);
-
-
-        return response()->json(
-            ['data'=>[
-                'centro'=> $centro
-            ],
-            ],200);
     }
 
     /**
@@ -61,24 +43,27 @@ class CentroController extends Controller
     public function show(string $id)
     {
         //
-        $centro=Centro::findOrFAil($id);
+        $tipoCarrera=TipoCarrera::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'centro'=> $centro
+                'tipoCarrera'=> $tipoCarrera
                  ],
             ],200);
     }
 
 
-    public function showCarreras(string $id)
+        /**
+     * Display the specified resource.
+     */
+    public function showTipoRamaCarreras(string $id)
     {
         //
-        $centro=Centro::findOrFAil($id);
-        $carreras=$centro->carreras;
+        $tipoCarrera=TipoCarrera::findOrFail($id);
+        $tipoRamaCarreras=$tipoCarrera->tipoRamaCarreras;
         return response()->json(
             ['data'=>[
-                'centro'=> $centro,
-                'carreras'=>$carreras
+                'tipoCarrera'=> $tipoCarrera,
+                'tipoRamaCarreras'=>$tipoRamaCarreras
                  ],
             ],200);
     }

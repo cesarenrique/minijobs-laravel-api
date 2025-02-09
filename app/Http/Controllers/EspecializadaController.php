@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Centro;
+use App\Models\Especializada;
+use App\Models\EmpresaEspecializada;
+use App\Models\Empresa;
 
-class CentroController extends Controller
+class EspecializadaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +15,11 @@ class CentroController extends Controller
     public function index()
     {
         //
-        $centros=Centro::All();
+        $especializadas=Especializada::All();
+
         return response()->json(
             ['data'=>[
-                'centros'=> $centros
+                'especializadas'=> $especializadas
                  ],
             ],200);
     }
@@ -35,24 +38,6 @@ class CentroController extends Controller
     public function store(Request $request)
     {
         //
-
-        $validated=$request->validate([
-            'nombre'=>'required',
-            'anyo_plan_academico_id'=>'required'
-        ]);
-
-        $centro=Centro::create([
-            'nombre'=>$request->nombre,
-            'anyo_plan_academico_id'=>$request->anyo_plan_academico_id,
-
-        ]);
-
-
-        return response()->json(
-            ['data'=>[
-                'centro'=> $centro
-            ],
-            ],200);
     }
 
     /**
@@ -61,24 +46,44 @@ class CentroController extends Controller
     public function show(string $id)
     {
         //
-        $centro=Centro::findOrFAil($id);
+        $especializada=Especializada::findOrFail($id);
+
         return response()->json(
             ['data'=>[
-                'centro'=> $centro
+                'especializada'=> $especializada
                  ],
             ],200);
     }
 
 
-    public function showCarreras(string $id)
+        /**
+     * Display the specified resource.
+     */
+    public function showEmpresas(string $id)
     {
         //
-        $centro=Centro::findOrFAil($id);
-        $carreras=$centro->carreras;
+
+        $especializada=Especializada::findOrFail($id);
+        $sector=$especializada->sector;
+        $empresasEspecialiadas=EmpresaEspecializada::where('especializada_id','like',$especializada->id)->get();
+        $empresas=[];
+        $aux2=[];
+        if(count($empresasEspecialiadas)>=1){
+            foreach($empresasEspecialiadas as $empresasEspecialiada){
+                $aux=Empresa::where('id','like',$empresasEspecialiada->empresa_id)->first();
+                if(!in_array($aux->id,$aux2)){
+                    $empresas[]=$aux;
+                    $aux2[]= $aux->id;
+                }
+            }
+
+        }
+
         return response()->json(
             ['data'=>[
-                'centro'=> $centro,
-                'carreras'=>$carreras
+                'sector'=>$sector,
+                'especializada'=> $especializada,
+                'empresas'=>$empresas
                  ],
             ],200);
     }

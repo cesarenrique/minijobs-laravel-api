@@ -22,6 +22,11 @@ use App\Http\Controllers\AnyoPlanAcademicoController;
 use App\Http\Controllers\CentroController;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\AsignaturaController;
+use App\Http\Controllers\TipoCarreraController;
+use App\Http\Controllers\TipoRamaCarreraController;
+use App\Http\Controllers\EmpresaEspecializadaController;
+use App\Http\Controllers\EspecializadaController;
+use App\Http\Controllers\SectorController;
 
 /*
 Route::get('/user', function (Request $request) {
@@ -37,11 +42,12 @@ Route::get('/sinrol/complete',[SinRolController::class,'indexComplete']);
 Route::get('/empresa/{id}/cargo', [EmpresaCargoController::class,'indexCargos']);
 Route::get('/empresa/{id}/anuncio', [EmpresaAnuncioController::class,'indexAnuncios']);
 Route::get('/empresa/{empresa}/cargo/{id}/anuncio', [CargoEmpresaAnuncioController::class,'indexAnuncios']);
-Route::get('/anuncio/{id}/complete', [AnuncioController::class,'showComplete']);
+
 
 Route::post('/user/login', [UserController::class,'login']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}/updateUltimoRol/{rol}', [UserController::class,'updateUltimoRol']);
+Route::get('/user/username/{username}', [UserController::class,'showForUsername']);
 
 Route::get('/encargado/{idEncargado}/user', [EncargadoController::class,'showUserComplete']);
 Route::get('/encargado/user/{idUser}', [EncargadoController::class,'showUser']);
@@ -50,6 +56,7 @@ Route::get('/encargado/{idEncargado}/empresa', [EmpresaController::class,'showEn
 Route::get('/reclutador/{idReclutador}/user', [ReclutadorController::class,'showUserComplete']);
 Route::get('/reclutador/user/{idUser}', [ReclutadorController::class,'showUser']);
 Route::get('/reclutador/{id}/anuncios', [ReclutadorController::class,'anuncios']);
+Route::get('/anuncio/{id}/complete', [AnuncioController::class,'showComplete']);
 
 Route::get('/alumno/{idAlumno}/user', [AlumnoController::class,'showUserComplete']);
 Route::get('/alumno/user/{idUser}', [AlumnoController::class,'showUser']);
@@ -63,6 +70,17 @@ Route::get('/candidato/existe/{idAnuncio}/{idAlumno}', [CandidatoController::cla
 
 Route::get('/carrera/{id}/complete', [CarreraController::class,'showCarreraComplete']);
 Route::post('/carrera/complete', [CarreraController::class,'storeComplete']);
+
+Route::get('/centro/{id}/carreras', [CentroController::class,'showCarreras']);
+
+Route::get('/tipocarrera/{id}/tiporamacarreras', [TipoCarreraController::class,'showTipoRamaCarreras']);
+
+Route::get('/tiporamacarrera/{id}/carreras', [TipoRamaCarreraController::class,'showCarreras']);
+
+Route::get('/sector/{id}/empresas', [SectorController::class,'showEmpresas']);
+Route::get('/sector/{id}/especializadas', [SectorController::class,'showEspecializadas']);
+
+Route::get('/especializada/{id}/empresas', [EspecializadaController::class,'showEmpresas']);
 
 Route::resource('/user', UserController::class);
 Route::resource('/encargado', EncargadoController::class);
@@ -81,6 +99,9 @@ Route::resource('/anyoplanacademico', AnyoPlanAcademicoController::class);
 Route::resource('/centro', CentroController::class);
 Route::resource('/carrera', CarreraController::class);
 Route::resource('/asignatura',AsignaturaController::class);
-
-Route::get('/user/username/{username}', [UserController::class,'showForUsername']);
+Route::resource('/tipocarrera',TipoCarreraController::class);
+Route::resource('/tiporamacarrera',TipoRamaCarreraController::class);
+Route::resource('/especializada',EspecializadaController::class);
+Route::resource('/sector',SectorController::class);
+Route::resource('/empresaespecializada',EmpresaEspecializadaController::class);
 

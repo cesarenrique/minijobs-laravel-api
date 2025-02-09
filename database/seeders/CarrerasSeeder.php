@@ -8,6 +8,9 @@ use App\Models\AnyoPlanAcademico;
 use App\Models\Centro;
 use App\Models\Carrera;
 use App\Models\Asignatura;
+use App\Models\TipoCarrera;
+use App\Models\TipoRamaCarrera;
+
 class CarrerasSeeder extends Seeder
 {
     /**
@@ -15,18 +18,29 @@ class CarrerasSeeder extends Seeder
      */
     public function run(): void
     {
+        $tipoCarrera=TipoCarrera::create([
+            'nombre'=>'Tecnico Superior'
+        ]);
+
+        $tipoRamaCarrera=TipoRamaCarrera::create([
+            'nombre'=>'Tecnico Superior Informatica',
+            'tipo_carrera_id'=>$tipoCarrera->id
+        ]);
+
         $anyoPlanAcademico=AnyoPlanAcademico::create([
             'nombre'=>'2010'
         ]);
 
         $centro=Centro::create([
             'nombre'=>'IES MARCOS ZARAGOZA',
-            'anyo_plan_academico_id'=>$anyoPlanAcademico->id
+
         ]);
 
         $carrera=Carrera::create([
-            'nombre'=>'Tecnico Superior Administración Sistemas Informáticos en RED',
-            'centro_id'=>$centro->id
+            'nombre'=>'Tecnico Superior Administración Sistemas Informáticos en Red',
+            'centro_id'=>$centro->id,
+            'tipo_rama_carrera_id'=>$tipoRamaCarrera->id,
+            'anyo_plan_academico_id'=>$anyoPlanAcademico->id
         ]);
 
         $asignaturaArray=[];

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Centro;
+use App\Models\TipoRamaCarrera;
 
-class CentroController extends Controller
+class TipoRamaCarreraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +13,10 @@ class CentroController extends Controller
     public function index()
     {
         //
-        $centros=Centro::All();
+        $tipoRamaCarreras=TipoRamaCarrera::All();
         return response()->json(
             ['data'=>[
-                'centros'=> $centros
+                'tipoRamaCarreras'=> $tipoRamaCarreras
                  ],
             ],200);
     }
@@ -35,24 +35,6 @@ class CentroController extends Controller
     public function store(Request $request)
     {
         //
-
-        $validated=$request->validate([
-            'nombre'=>'required',
-            'anyo_plan_academico_id'=>'required'
-        ]);
-
-        $centro=Centro::create([
-            'nombre'=>$request->nombre,
-            'anyo_plan_academico_id'=>$request->anyo_plan_academico_id,
-
-        ]);
-
-
-        return response()->json(
-            ['data'=>[
-                'centro'=> $centro
-            ],
-            ],200);
     }
 
     /**
@@ -61,24 +43,27 @@ class CentroController extends Controller
     public function show(string $id)
     {
         //
-        $centro=Centro::findOrFAil($id);
+        $tipoRamaCarrera=TipoRamaCarrera::All();
         return response()->json(
             ['data'=>[
-                'centro'=> $centro
+                'tipoRamaCarrera'=> $tipoRamaCarrera
                  ],
             ],200);
     }
 
-
+        /**
+     * Display the specified resource.
+     */
     public function showCarreras(string $id)
     {
         //
-        $centro=Centro::findOrFAil($id);
-        $carreras=$centro->carreras;
+        $tipoRamaCarrera=TipoRamaCarrera::findOrFail($id);
+        $carreras=$tipoRamaCarrera->carreras;
         return response()->json(
             ['data'=>[
-                'centro'=> $centro,
-                'carreras'=>$carreras
+
+                'tipoRamaCarrera'=>$tipoRamaCarrera,
+                'carreras'=> $carreras,
                  ],
             ],200);
     }

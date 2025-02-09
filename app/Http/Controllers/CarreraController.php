@@ -42,13 +42,16 @@ class CarreraController extends Controller
 
         $validated=$request->validate([
             'nombre'=>'required',
-            'centro_id'=>'required'
+            'centro_id'=>'required',
+            'anyo_plan_academico_id'=>'required',
+            'tipo_rama_carrera_id'=>'required'
         ]);
 
         $carrera=Carrera::create([
             'nombre'=>$request->nombre,
             'centro_id'=>$request->centro_id,
-
+            'anyo_plan_academico_id'=>$request->anyo_plan_academico_id,
+            'tipo_rama_carrera_id'=>$request->tipo_rama_carrera_id
         ]);
 
 
@@ -71,49 +74,51 @@ class CarreraController extends Controller
             'anyo_plan_academico_id'=>'required',
             'centro_id'=>'required',
             'carrera_id'=>'required',
+            'tipo_rama_carrera_id'=>'required',
+            'tipo_carrera_id'=>'required',
             'anyo_plan_academico_nombre'=>'required',
             'centro_nombre'=>'required',
             'carrera_nombre'=>'required',
+            'tipo_rama_carrera_nombre'=>'required',
+            'tipo_carrera_nombre'=>'required',
         ]);
 
         $asignaturas=null;
         $centro=null;
         $carrera=null;
         $anyoPlanAcademico=null;
+        $tipoRamaCarrera=null;
+        $tipoCarrera=null;
         $error=0;
         if(0!=$request->carrera_id){
             $carrera=Carrera::findOrFail($request->carrera_id);
             $centro=$carrera->centro;
-            $anyoPlanAcademico=$centro->anyoPlanAcademico;
+            $anyoPlanAcademico=$carrera->anyoPlanAcademico;
+            $tipoRamaCarrera=$carrera->tipoRamaCarrera;
         }else if(0!=$request->centro_id){
             if(0==$request->anyo_plan_academico_id){
                 $error=1;
+            }else{
+                $centro=Centro::findOrFail($request->centro_id);
+                $anyoPlanAcademico=$centro->anyoPlanAcademico;
+                if(0==$request->tipo_rama_carrera_id){
+                    $tipoCarrera=TipoCarrera::create([
+                        'nombre'=>$request->tipo_carrera_nombre
+                    ]);
+                    $tipoRamaCarrera=TipoRamaCarrera::create([
+                        'nombre'=>$request->tipo_rama_carrera_nombre,
+                        'tipo_carrera_id'=>$tipoCarrera->id
+                    ]);
+                }else{
+                    $tipoRamaCarrera=TipoRamaCarrera::findOrFail($request->tipo_rama_carrera_id);
+                }
+                $carrera=Carrera::create([
+                    'nombre'=>$request->centro_nombre,
+                    'centro_id'=>$request->centro_id,
+                    'anyo_plan_academico_id'=>$request->anyo_plan_academico_id,
+                    'tipo_rama_carrera_id'=>$tipoRamaCarrera->id
+                ]);
             }
-            $centro=Centro::findOrFail($request->centro_id);
-            $anyoPlanAcademico=$centro->anyoPlanAcademico;
-            $carrera=Carrera::create([
-                'nombre'=>$request->centro_nombre,
-                'centro_id'=>$request->centro_id,
-
-            ]);
-        }else if(0!=$request->anyo_plan_academico_id){
-            if(0==$request->centro_id || 0==$request->carrera_id){
-                $error=1;
-            }
-            $anyoPlanAcademico=AnyoPlanAcademico::create([
-                'nombre'=>$request->anyo_plan_academico_nombre,
-
-            ]);
-            $centro=Centro::create([
-                'nombre'=>$request->nombre,
-                'anyo_plan_academico_id'=>$anyoPlanAcademico->id,
-
-            ]);
-            $carrera=Carrera::create([
-                'nombre'=>$request->carrera_nombre,
-                'centro_id'=>$centro->id,
-
-            ]);
         }
 
         if(error==1){
@@ -197,10 +202,16 @@ class CarreraController extends Controller
             }
             $i++;
         }
+        $asignaturas=$carrera->asignaturas;
 
         return response()->json(
             ['data'=>[
-                'carrera'=> $carrera
+                'anyoPlanAcademico'=>$anyoPlanAcademico,
+                'centro'=>$centro,
+                'carrera'=> $carrera,
+                'tipoRamaCarrera'=>$tipoRamaCarrera,
+                'tipoCarrera'=>$tipoCarrera,
+                'asignaturas'=>$asignaturas
             ],
             ],200);
     }
@@ -229,13 +240,17 @@ class CarreraController extends Controller
         $carrera=Carrera::findOrFail($id);
         $asignaturas=$carrera->asignaturas;
         $centro=$carrera->centro;
-        $anyoPlanAcademico=$centro->anyoPlanAcademico;
+        $anyoPlanAcademico=$carrera->anyoPlanAcademico;
+        $tipoRamaCarrera=$carrera->tipoRamaCarrera;
+        $tipoCarrera=$tipoRamaCarrera->tipoCarrera;
         return response()->json(
             ['data'=>[
                 'anyoPlanAcademico'=>$anyoPlanAcademico,
                 'centro'=>$centro,
                 'carrera'=> $carrera,
-                'asignaturas'=>$asignaturas,
+                'tipoRamaCarrera'=>$tipoRamaCarrera,
+                'tipoCarrera'=>$tipoCarrera,
+                'asignaturas'=>$asignaturas
                  ],
             ],200);
     }
