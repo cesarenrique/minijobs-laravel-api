@@ -19,9 +19,9 @@ return new class extends Migration
             $table->float('test_skills');
             $table->unsignedBigInteger('alumno_id');
             $table->unsignedBigInteger('anuncio_id');
-            $table->unique('alumno_id','anuncio_id');
+            $table->unique(['alumno_id','anuncio_id']);
             $table->foreign('alumno_id')->references('id')->on('alumnos');
-            $table->foreign('anuncio_id')->references('id')->on('anuncios'); 
+            $table->foreign('anuncio_id')->references('id')->on('anuncios');
             $table->timestamps();
         });
     }

@@ -122,6 +122,22 @@ class ReclutadorController extends Controller
             ],200);
     }
 
+
+            /**
+     * Display the specified resource.
+     */
+    public function anuncios(string $idReclutador)
+    {
+        //
+
+        $reclutador=Reclutador::findOrFail($idReclutador);
+        $anuncios=$reclutador->anuncios;
+        return response()->json(
+            ['data'=>[
+                'anuncios'=> $anuncios
+                 ],
+            ],200);
+    }
     /**
      * Show the form for editing the specified resource.
      */

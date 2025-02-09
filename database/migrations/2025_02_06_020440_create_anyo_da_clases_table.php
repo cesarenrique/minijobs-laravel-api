@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('da_clases', function (Blueprint $table) {
+        Schema::create('anyo_da_clases', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('anyo_academicos_id');
             $table->unsignedBigInteger('profesor_id');
-            $table->unsignedBigInteger('asignaturas_id');
-            $table->unique('profesor_id','asignaturas_id');
+            $table->unique(['profesor_id','anyo_academicos_id']);
             $table->foreign('profesor_id')->references('id')->on('profesors');
-            $table->foreign('asignaturas_id')->references('id')->on('asignaturas');
+            $table->foreign('anyo_academicos_id')->references('id')->on('anyo_academicos');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('da_clases');
+        Schema::dropIfExists('anyo_da_clases');
     }
 };

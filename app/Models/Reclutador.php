@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Anuncio;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reclutador extends Model
 {
@@ -21,5 +23,9 @@ class Reclutador extends Model
 
     public function user():hasOne {
         return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function anuncios():hasMany {
+        return $this->hasMany(Anuncio::class,'reclutador_id','id');
     }
 }

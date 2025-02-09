@@ -7,4 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class AnyoPlanAcademico extends Model
 {
     //
+
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'nombre',
+    ];
+
+
 }

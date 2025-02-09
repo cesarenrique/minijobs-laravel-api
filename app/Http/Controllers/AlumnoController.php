@@ -93,6 +93,36 @@ class AlumnoController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function showUser(string $idUser)
+    {
+        //
+
+        $alumno=Alumno::where('user_id','like',$idUser)->firstOrFail();
+        return response()->json(
+            ['data'=>[
+                'alumno'=> $alumno
+                 ],
+            ],200);
+    }
+
+        /**
+     * Display the specified resource.
+     */
+    public function showUserComplete(string $idEncargado)
+    {
+        //
+
+        $alumno=Alumno::findOrFail($idEncargado);
+        $user=User::findOrFail($alumno->user_id);
+        return response()->json(
+            ['data'=>[
+                'user'=> $user
+                 ],
+            ],200);
+    }
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
