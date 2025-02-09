@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('carreras', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedBigInteger('centro_id');
-            $table->foreign('centro_id')->references('id')->on('centros');
             $table->unsignedBigInteger('tipo_rama_carrera_id');
             $table->foreign('tipo_rama_carrera_id')->references('id')->on('tipo_rama_carreras');
             $table->unsignedBigInteger('anyo_plan_academico_id');

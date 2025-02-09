@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Centro;
+use App\Models\CarreraCentro;
+use App\Models\Carrera;
 
 class CentroController extends Controller
 {
@@ -38,13 +40,10 @@ class CentroController extends Controller
 
         $validated=$request->validate([
             'nombre'=>'required',
-            'anyo_plan_academico_id'=>'required'
         ]);
 
         $centro=Centro::create([
             'nombre'=>$request->nombre,
-            'anyo_plan_academico_id'=>$request->anyo_plan_academico_id,
-
         ]);
 
 
@@ -74,7 +73,11 @@ class CentroController extends Controller
     {
         //
         $centro=Centro::findOrFAil($id);
-        $carreras=$centro->carreras;
+        $carreraCentros=CarreraCentro::where('centro_id','like',$centro->id)->get();
+        $carreras=[];
+        foreach($carreraCentros as $carreraCentro){
+            $carreras[]=Carrera::findOrFail($carreraCentro->carrera_id);
+        }
         return response()->json(
             ['data'=>[
                 'centro'=> $centro,

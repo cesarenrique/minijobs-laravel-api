@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('empresa_cargo_experiencias', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('empresa_experiencia_id');
+            $table->unsignedBigInteger('cargo_experiencia_id');
+            $table->foreign('empresa_experiencia_id')->references('id')->on('empresa_experiencias');
+            $table->foreign('cargo_experiencia_id')->references('id')->on('cargo_experiencias');
             $table->timestamps();
         });
     }

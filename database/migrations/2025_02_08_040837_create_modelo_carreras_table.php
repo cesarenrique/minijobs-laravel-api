@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('modelo_carreras', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedBigInteger('anyo_plan_academico_id');
-            $table->foreign('anyo_plan_academico_id')->references('id')->on('anyo_plan_academicos');
             $table->timestamps();
         });
     }

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('opcion_practicas', function (Blueprint $table) {
+        Schema::create('asignatura_carreras', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('alumno_id');
+            $table->unsignedBigInteger('asignatura_id');
             $table->unsignedBigInteger('carrera_id');
-            $table->unsignedBigInteger('practica_academica_id');
-            $table->foreign('alumno_id')->references('id')->on('alumnos');
+            $table->unique(['asignatura_id','carrera_id']);
+            $table->foreign('asignatura_id')->references('id')->on('asignaturas');
             $table->foreign('carrera_id')->references('id')->on('carreras');
-            $table->foreign('practica_academica_id')->references('id')->on('practica_academicas');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('opcion_practicas');
+        Schema::dropIfExists('asignatura_carreras');
     }
 };

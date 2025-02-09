@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Asignatura;
+use App\Models\Skill;
 
-class AsignaturaController extends Controller
+class SkillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,11 @@ class AsignaturaController extends Controller
     public function index()
     {
         //
-        $asignaturas=Asignatura::All();
+        $skills=Skill::All();
         return response()->json(
             ['data'=>[
-                'asignaturas'=> $asignaturas
-            ],
+                'skills'=> $skills
+                 ],
             ],200);
     }
 
@@ -35,21 +35,6 @@ class AsignaturaController extends Controller
     public function store(Request $request)
     {
         //
-
-        $validated=$request->validate([
-            'nombre'=>'required',
-        ]);
-
-        $asignatura=Asignatura::create([
-            'nombre'=>$request->nombre,
-        ]);
-
-
-        return response()->json(
-            ['data'=>[
-                'asignatura'=> $asignatura
-            ],
-            ],200);
     }
 
     /**
@@ -58,12 +43,6 @@ class AsignaturaController extends Controller
     public function show(string $id)
     {
         //
-        $asignatura=Asignatura::findOrFail($id);
-        return response()->json(
-            ['data'=>[
-                'asignatura'=> $asignatura
-            ],
-            ],200);
     }
 
     /**

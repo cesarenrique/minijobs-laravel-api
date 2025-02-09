@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('candidatos', function (Blueprint $table) {
             $table->id();
+            $table->float('puntuacion_personal');
             $table->float('puntuacion_academica');
-            $table->float('puntuación_experiencia');
-            $table->float('puntuación_skill');
+            $table->float('puntuacion_experiencia');
+            $table->float('puntuacion_mentor');
             $table->float('test_skills');
             $table->unsignedBigInteger('alumno_id');
             $table->unsignedBigInteger('anuncio_id');

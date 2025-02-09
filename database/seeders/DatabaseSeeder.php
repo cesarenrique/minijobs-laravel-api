@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             EmpresaSeeder::class,
             CandidatoSeeder::class,
             CarrerasSeeder::class,
+            SkillSinValidacionSeeder::class
         ]);
         // User::factory(10)->create();
 /*

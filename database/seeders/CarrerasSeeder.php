@@ -6,6 +6,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\AnyoPlanAcademico;
 use App\Models\Centro;
+use App\Models\CarreraCentro;
+use App\Models\AsignaturaCarrera;
+use App\Models\AsignaturaCentro;
 use App\Models\Carrera;
 use App\Models\Asignatura;
 use App\Models\TipoCarrera;
@@ -38,9 +41,13 @@ class CarrerasSeeder extends Seeder
 
         $carrera=Carrera::create([
             'nombre'=>'Tecnico Superior Administración Sistemas Informáticos en Red',
-            'centro_id'=>$centro->id,
             'tipo_rama_carrera_id'=>$tipoRamaCarrera->id,
             'anyo_plan_academico_id'=>$anyoPlanAcademico->id
+        ]);
+
+        $carreraCentro=CarreraCentro::create([
+            'centro_id'=>$centro->id,
+            'carrera_id'=>$carrera->id
         ]);
 
         $asignaturaArray=[];
@@ -69,9 +76,22 @@ class CarrerasSeeder extends Seeder
         while($i<$tam ){
             $asignatura=Asignatura::create([
                 'nombre'=>$asignaturaArray[$i],
-                'carrera_id'=>$carrera->id
+                'tipo'=>0,
+                'particular'=>'Universal'
             ]);
             $i++;
+
+            $asignaturaCarrera=AsignaturaCarrera::create([
+                'asignatura_id'=>$asignatura->id,
+                'carrera_id'=>$carrera->id
+            ]);
+
+            $asignaturaCentro=AsignaturaCentro::create([
+                'asignatura_id'=>$asignatura->id,
+                'centro_id'=>$centro->id,
+                'carrera_id'=>$carrera->id
+            ]);
+
         }
 
     }

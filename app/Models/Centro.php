@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\hasMany;
 use App\Models\Carrera;
 
 class Centro extends Model
@@ -17,13 +16,10 @@ class Centro extends Model
      */
     protected $fillable = [
         'nombre',
-        'anyo_plan_academico_id',
+
     ];
 
 
-    public function carreras():hasMany {
-        return $this->hasMany(Carrera::class,'centro_id','id');
-    }
 
 
 

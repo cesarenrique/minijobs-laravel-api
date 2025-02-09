@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Carrera;
 use App\Models\Centro;
-use App\Models\Asignaturas;
+use App\Models\AsignaturaCarrera;
 use App\Models\AnyoPlanAcademico;
-
+use App\Models\Asignatura;
 class CarreraController extends Controller
 {
     /**
@@ -68,7 +68,7 @@ class CarreraController extends Controller
     public function storeComplete(Request $request)
     {
         //
-
+/*
 
         $validated=$request->validate([
             'anyo_plan_academico_id'=>'required',
@@ -92,7 +92,6 @@ class CarreraController extends Controller
         $error=0;
         if(0!=$request->carrera_id){
             $carrera=Carrera::findOrFail($request->carrera_id);
-            $centro=$carrera->centro;
             $anyoPlanAcademico=$carrera->anyoPlanAcademico;
             $tipoRamaCarrera=$carrera->tipoRamaCarrera;
         }else if(0!=$request->centro_id){
@@ -213,7 +212,7 @@ class CarreraController extends Controller
                 'tipoCarrera'=>$tipoCarrera,
                 'asignaturas'=>$asignaturas
             ],
-            ],200);
+            ],200);*/
     }
 
 
@@ -238,15 +237,18 @@ class CarreraController extends Controller
     {
         //
         $carrera=Carrera::findOrFail($id);
-        $asignaturas=$carrera->asignaturas;
-        $centro=$carrera->centro;
         $anyoPlanAcademico=$carrera->anyoPlanAcademico;
         $tipoRamaCarrera=$carrera->tipoRamaCarrera;
         $tipoCarrera=$tipoRamaCarrera->tipoCarrera;
+
+        $asignaturas=[];
+        $asignaturaCarreras=AsignaturaCarrera::where('carrera_id','like',$carrera->id)->get();
+        foreach($asignaturaCarreras as $asignaturaCarrera){
+            $asignaturas[]=Asignatura::findOrFail($asignaturaCarrera->asignatura_id);
+        }
         return response()->json(
             ['data'=>[
                 'anyoPlanAcademico'=>$anyoPlanAcademico,
-                'centro'=>$centro,
                 'carrera'=> $carrera,
                 'tipoRamaCarrera'=>$tipoRamaCarrera,
                 'tipoCarrera'=>$tipoCarrera,
