@@ -11,6 +11,8 @@ use App\Models\Reclutador;
 use App\Models\Encargado;
 use App\Models\SinRol;
 use App\Models\Administrador;
+use App\Models\TieneSkill;
+use App\Models\Skill;
 
 class UserController extends Controller
 {
@@ -119,7 +121,61 @@ class UserController extends Controller
             ],200);
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function showComplete(string $id)
+    {
+        $user=User::findOrFail($id);
+        $alumno=Alumno::where('user_id','like',$user->id)->get();
+        $profesor=Profesor::where('user_id','like',$user->id)->get();
+        $reclutador=Reclutador::where('user_id','like',$user->id)->get();
+        $encargado=Encargado::where('user_id','like',$user->id)->get();
+        $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $alumnoEs=0;
+        $profesorEs=0;
+        $reclutadorEs=0;
+        $encargadoEs=0;
+        $administradorEs=0;
 
+        if(count($alumno)>=1){
+            $alumnoEs=1;
+        }
+        if(count($profesor)>=1){
+            $profesorEs=1;
+        }
+        if(count($reclutador)>=1){
+            $reclutadorEs=1;
+        }
+        if(count($encargado)>=1){
+            $encargadoEs=1;
+        }
+        if(count($administrador)>=1){
+            $administradorEs=1;
+        }
+        $skills=[];
+        if($alumnoEs==1){
+            $alumno=Alumno::where('user_id','like',$user->id)->first();
+            $tieneSkills=TieneSkill::where('alumno_id','like',$alumno->id)->get();
+            foreach($tieneSkills as $tieneSkill){
+                $skills[]=Skill::findOrFail($tieneSkill->skill_id);
+            }
+        }
+
+
+
+        return response()->json(
+            ['data'=>[
+                'user'=> $user,
+                'alumno'=>$alumnoEs,
+                'profesor'=> $profesorEs,
+                'reclutador'=>$reclutadorEs,
+                'encargado'=>$encargadoEs,
+                'administrador'=>$administradorEs,
+                'skills'=>$skills
+            ],
+            ],200);
+    }
 
     public function showForUsername(string $username)
     {

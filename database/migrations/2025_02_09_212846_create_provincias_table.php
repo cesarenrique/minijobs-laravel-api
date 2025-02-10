@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suscripcions', function (Blueprint $table) {
+        Schema::create('provincias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedBIgInteger('anyoYMes');
-            $table->foreign('anyoYMes')->references('id')->on('mes_suscripcions');
+            $table->unsignedBigInteger('pais_id');
+            $table->foreign('pais_id')->references('id')->on('pais');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suscripcions');
+        Schema::dropIfExists('provincias');
     }
 };

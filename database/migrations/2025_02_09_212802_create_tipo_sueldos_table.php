@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mes_suscripcions', function (Blueprint $table) {
+        Schema::create('tipo_sueldos', function (Blueprint $table) {
             $table->id();
-            $table->Integer('mes');
-            $table->unsignedBigInteger('anyo_id');
-            $table->foreign('anyo_id')->references('id')->on('anyo_suscripcions');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mes_suscripcions');
+        Schema::dropIfExists('tipo_sueldos');
     }
 };

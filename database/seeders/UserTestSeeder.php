@@ -16,6 +16,7 @@ class UserTestSeeder extends Seeder
     {
         //
         $hashed=Hash::make('minijobs',['rounds'=>12]);
+
         DB::table('users')->insert([
             'name' => 'Administrador',
             'username'=> 'Administrador',
@@ -76,12 +77,85 @@ class UserTestSeeder extends Seeder
             'updated_at'=>now()
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Mentor',
+            'username'=> 'Mentor',
+            'NIF'=>'503821982Z',
+            'email'=>'mentor@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
 
         DB::table('users')->insert([
             'name' => 'muestra',
             'username'=> 'muestra',
             'NIF'=>'50380208Z',
             'email'=>'muestra@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
+
+
+        DB::table('users')->insert([
+            'name' => 'Alumno2',
+            'username'=> 'Alumno2',
+            'NIF'=>'50380204IO',
+            'email'=>'alumno2@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Profesor2',
+            'username'=> 'Profesor2',
+            'NIF'=>'503802SSZ',
+            'email'=>'profesor2@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Encargado2',
+            'username'=> 'Encargado2',
+            'NIF'=>'50380206ZQW',
+            'email'=>'encargado2@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Reclutador2',
+            'username'=> 'Reclutador2',
+            'NIF'=>'50380207AE',
+            'email'=>'reclutador2@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Mentor2',
+            'username'=> 'Mentor2',
+            'NIF'=>'403821982Z',
+            'email'=>'mentor2@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
             'email_verified_at'=>now(),

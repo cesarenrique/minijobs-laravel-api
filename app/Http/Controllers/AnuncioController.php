@@ -7,6 +7,9 @@ use App\Models\Anuncio;
 use App\Models\CargoEmpresa;
 use App\Models\Cargo;
 use App\Models\Empresa;
+use App\Models\BuscaSkill;
+use App\Models\Skill;
+
 class AnuncioController extends Controller
 {
     /**
@@ -88,12 +91,18 @@ class AnuncioController extends Controller
         $cargoEmpresa=CargoEmpresa::findOrFail($anuncio->cargo_empresa_id);
         $cargo=Cargo::findOrFail($cargoEmpresa->cargo_id);
         $empresa=Empresa::findOrFail($cargoEmpresa->empresa_id);
+        $buscaSkills=BuscaSkill::where('anuncio_id','like',$anuncio->id)->get();
+        $skills=[];
+        foreach($buscaSkills as $buscaSkill){
+            $skills[]=Skill::findOrFail($buscaSkill->skill_id);
+        }
 
         return response()->json(
             ['data'=>[
                 'anuncio'=> $anuncio,
                 'cargo'=> $cargo,
-                'empresa'=> $empresa
+                'empresa'=> $empresa,
+                'skills'=>$skills
                  ],
             ],200);
     }

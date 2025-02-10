@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formas_pagos', function (Blueprint $table) {
+        Schema::create('localidads', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('dato01')->nullable();
-            $table->string('dato02')->nullable();
-            $table->string('dato03')->nullable();
-            $table->string('dato04')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->unsignedBigInteger('provincia_id');
+            $table->foreign('provincia_id')->references('id')->on('provincias');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formas_pagos');
+        Schema::dropIfExists('localidads');
     }
 };

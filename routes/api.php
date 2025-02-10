@@ -27,11 +27,13 @@ use App\Http\Controllers\TipoRamaCarreraController;
 use App\Http\Controllers\EmpresaEspecializadaController;
 use App\Http\Controllers\EspecializadaController;
 use App\Http\Controllers\SectorController;
-
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\TieneSkillController;
 /*
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');*/
+
 Route::get('/alumno/complete',[AlumnoController::class,'indexComplete']);
 Route::get('/profesor/complete',[ProfesorController::class,'indexComplete']);
 Route::get('/encargado/complete',[EncargadoController::class,'indexComplete']);
@@ -43,7 +45,7 @@ Route::get('/empresa/{id}/cargo', [EmpresaCargoController::class,'indexCargos'])
 Route::get('/empresa/{id}/anuncio', [EmpresaAnuncioController::class,'indexAnuncios']);
 Route::get('/empresa/{empresa}/cargo/{id}/anuncio', [CargoEmpresaAnuncioController::class,'indexAnuncios']);
 
-
+Route::get('/user/{id}/complete', [UserController::class,'showComplete']);
 Route::post('/user/login', [UserController::class,'login']);
 Route::post('/user/logout', [UserController::class,'logout']);
 Route::get('/user/{id}/updateUltimoRol/{rol}', [UserController::class,'updateUltimoRol']);
@@ -82,6 +84,9 @@ Route::get('/sector/{id}/especializadas', [SectorController::class,'showEspecial
 
 Route::get('/especializada/{id}/empresas', [EspecializadaController::class,'showEmpresas']);
 
+Route::get('/skill/{id}/anuncios', [SkillController::class,'showAnuncios']);
+Route::get('/skill/{id}/usuarios', [SkillController::class,'showUsuarios']);
+
 Route::resource('/user', UserController::class);
 Route::resource('/encargado', EncargadoController::class);
 Route::resource('/administrador', AdministradorController::class);
@@ -104,4 +109,5 @@ Route::resource('/tiporamacarrera',TipoRamaCarreraController::class);
 Route::resource('/especializada',EspecializadaController::class);
 Route::resource('/sector',SectorController::class);
 Route::resource('/empresaespecializada',EmpresaEspecializadaController::class);
-
+Route::resource('/skill',SkillController::class);
+Route::resource('/tieneskill',TieneSkillController::class);

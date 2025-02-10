@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tiene_skills', function (Blueprint $table) {
+        Schema::create('anuncio_contratos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('alumno_id');
-            $table->unsignedBigInteger('skill_id');
-            $table->foreign('alumno_id')->references('id')->on('alumnos');
-            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->unsignedBigInteger('contrato_id');
+            $table->unsignedBigInteger('anuncio_id');
+            $table->foreign('contrato_id')->references('id')->on('contratos');
+            $table->foreign('anuncio_id')->references('id')->on('anuncios');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tiene_skills');
+        Schema::dropIfExists('anuncio_contratos');
     }
 };

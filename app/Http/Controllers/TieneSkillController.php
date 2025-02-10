@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TieneSkill;
 
 class TieneSkillController extends Controller
 {
@@ -12,6 +13,12 @@ class TieneSkillController extends Controller
     public function index()
     {
         //
+        $tieneskills=TieneSkill::All();
+        return response()->json(
+            ['data'=>[
+                'tieneskills'=> $tieneskills
+                 ],
+            ],200);
     }
 
     /**

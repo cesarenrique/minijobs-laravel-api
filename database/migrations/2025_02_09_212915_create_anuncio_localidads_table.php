@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('anyo_suscripcions', function (Blueprint $table) {
+        Schema::create('anuncio_localidads', function (Blueprint $table) {
             $table->id();
-            $table->Integer('anyo');
+            $table->unsignedBigInteger('localidad_id');
+            $table->unsignedBigInteger('anuncio_id');
+            $table->foreign('localidad_id')->references('id')->on('localidads');
+            $table->foreign('anuncio_id')->references('id')->on('anuncios');
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anyo_suscripcions');
+        Schema::dropIfExists('anuncio_localidads');
     }
 };

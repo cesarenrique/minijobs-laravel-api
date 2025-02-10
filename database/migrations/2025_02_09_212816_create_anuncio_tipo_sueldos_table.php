@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('noticias', function (Blueprint $table) {
+        Schema::create('anuncio_tipo_sueldos', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
-            $table->text('descripcion');
-            $table->unsignedBigInteger('carrera_id');
-            $table->foreign('carrera_id')->references('id')->on('carreras');
+            $table->unsignedBigInteger('tipo_sueldo_id');
+            $table->unsignedBigInteger('anuncio_id');
+            $table->foreign('tipo_sueldo_id')->references('id')->on('tipo_sueldos');
+            $table->foreign('anuncio_id')->references('id')->on('anuncios');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('noticias');
+        Schema::dropIfExists('anuncio_tipo_sueldos');
     }
 };

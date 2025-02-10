@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UsuarioArticulo extends Model
+class Pais extends Model
 {
     //
 }

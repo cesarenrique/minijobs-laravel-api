@@ -7,9 +7,11 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Alumno;
 use App\Models\Skill;
+use App\Models\TieneSkillExperiencia;
 use App\Models\TieneSkill;
 use App\Models\BuscaSkill;
 use App\Models\Anuncio;
+
 class SkillSinValidacionSeeder extends Seeder
 {
     /**
@@ -26,15 +28,22 @@ class SkillSinValidacionSeeder extends Seeder
         ]);
 
 
-        $tieneSkill=TieneSkill::create([
+        $tieneSkillExperiencia=TieneSkillExperiencia::create([
             'alumno_id'=>$alumno->id,
             'skill_id'=>$skill->id,
             'tiempo_meses'=>24,
             'nivel'=>8,
             'validacion'=>1,
+            'descripcion'=>'tengo bastante practica por mi cuenta y he realizado pequeños proyectos',
             'asignatura_id'=>null,
             'profesor_id'=>null,
             'empresa_cargo_experiencia_id'=>null,
+            'mentor_id'=>null
+        ]);
+
+        $tieneSkill=TieneSkill::create([
+            'alumno_id'=>$alumno->id,
+            'skill_id'=>$skill->id,
         ]);
 
         $skill2=Skill::create([
@@ -43,17 +52,23 @@ class SkillSinValidacionSeeder extends Seeder
         ]);
 
 
-        $tieneSkill2=TieneSkill::create([
+        $tieneSkillExperiencia2=TieneSkillExperiencia::create([
             'alumno_id'=>$alumno->id,
             'skill_id'=>$skill2->id,
             'tiempo_meses'=>24,
             'nivel'=>8,
             'validacion'=>1,
+            'descripcion'=>'tengo bastante practica por mi cuenta y he realizado pequeños proyectos',
             'asignatura_id'=>null,
             'profesor_id'=>null,
             'empresa_cargo_experiencia_id'=>null,
+            'mentor_id'=>null
         ]);
 
+        $tieneSkill2=TieneSkill::create([
+            'alumno_id'=>$alumno->id,
+            'skill_id'=>$skill2->id,
+        ]);
 
         $skill3=Skill::create([
             'skill'=>'HTML',
@@ -61,15 +76,22 @@ class SkillSinValidacionSeeder extends Seeder
         ]);
 
 
-        $tieneSkill3=TieneSkill::create([
+        $tieneSkillExperiencia3=TieneSkillExperiencia::create([
             'alumno_id'=>$alumno->id,
             'skill_id'=>$skill2->id,
             'tiempo_meses'=>24,
             'nivel'=>8,
             'validacion'=>1,
+            'descripcion'=>'tengo bastante practica por mi cuenta y he realizado pequeños proyectos',
             'asignatura_id'=>null,
             'profesor_id'=>null,
             'empresa_cargo_experiencia_id'=>null,
+            'mentor_id'=>null
+        ]);
+
+        $tieneSkill3=TieneSkill::create([
+            'alumno_id'=>$alumno->id,
+            'skill_id'=>$skill3->id,
         ]);
 
 
@@ -79,17 +101,23 @@ class SkillSinValidacionSeeder extends Seeder
         ]);
 
 
-        $tieneSkill4=TieneSkill::create([
+        $tieneSkillExperiencia4=TieneSkillExperiencia::create([
             'alumno_id'=>$alumno->id,
             'skill_id'=>$skill3->id,
             'tiempo_meses'=>24,
             'nivel'=>4,
             'validacion'=>1,
+            'descripcion'=>'tengo bastante practica por mi cuenta y he realizado pequeños proyectos',
             'asignatura_id'=>null,
             'profesor_id'=>null,
             'empresa_cargo_experiencia_id'=>null,
+            'mentor_id'=>null
         ]);
 
+        $tieneSkill4=TieneSkill::create([
+            'alumno_id'=>$alumno->id,
+            'skill_id'=>$skill4->id,
+        ]);
 
         $skill5=Skill::create([
             'skill'=>'Python',
@@ -97,17 +125,24 @@ class SkillSinValidacionSeeder extends Seeder
         ]);
 
 
-        $tieneSkill5=TieneSkill::create([
+        $tieneSkillExperiencia5=TieneSkillExperiencia::create([
             'alumno_id'=>$alumno->id,
             'skill_id'=>$skill5->id,
             'tiempo_meses'=>6,
             'nivel'=>4,
             'validacion'=>1,
+            'descripcion'=>'tengo bastante practica por mi cuenta y he realizado pequeños proyectos',
             'asignatura_id'=>null,
             'profesor_id'=>null,
             'empresa_cargo_experiencia_id'=>null,
+            'mentor_id'=>null
         ]);
 
+
+        $tieneSkill5=TieneSkill::create([
+            'alumno_id'=>$alumno->id,
+            'skill_id'=>$skill5->id,
+        ]);
 
         $skill6=Skill::create([
             'skill'=>'Trabajo en Equipo',
@@ -115,17 +150,23 @@ class SkillSinValidacionSeeder extends Seeder
         ]);
 
 
-        $tieneSkill6=TieneSkill::create([
+        $tieneSkillExperiencia6=TieneSkillExperiencia::create([
             'alumno_id'=>$alumno->id,
             'skill_id'=>$skill6->id,
             'tiempo_meses'=>6,
             'nivel'=>4,
             'validacion'=>1,
+            'descripcion'=>'tengo bastante practica por mi cuenta y he realizado pequeños proyectos',
             'asignatura_id'=>null,
             'profesor_id'=>null,
             'empresa_cargo_experiencia_id'=>null,
+            'mentor_id'=>null
         ]);
 
+        $tieneSkill6=TieneSkill::create([
+            'alumno_id'=>$alumno->id,
+            'skill_id'=>$skill6->id,
+        ]);
 
         $anuncio=Anuncio::where('titulo','like','Desarrollador Web')->first();
 
@@ -146,6 +187,38 @@ class SkillSinValidacionSeeder extends Seeder
 
         $buscaSkill=BuscaSkill::create([
             'skill_id'=>$skill4->id,
+            'anuncio_id'=>$anuncio->id
+        ]);
+
+        $anuncio=Anuncio::where('titulo','like','Desarrollador Full Stack')->first();
+
+        $buscaSkill=BuscaSkill::create([
+            'skill_id'=>$skill->id,
+            'anuncio_id'=>$anuncio->id
+        ]);
+
+        $buscaSkill=BuscaSkill::create([
+            'skill_id'=>$skill2->id,
+            'anuncio_id'=>$anuncio->id
+        ]);
+
+        $buscaSkill=BuscaSkill::create([
+            'skill_id'=>$skill3->id,
+            'anuncio_id'=>$anuncio->id
+        ]);
+
+        $buscaSkill=BuscaSkill::create([
+            'skill_id'=>$skill4->id,
+            'anuncio_id'=>$anuncio->id
+        ]);
+
+        $buscaSkill=BuscaSkill::create([
+            'skill_id'=>$skill5->id,
+            'anuncio_id'=>$anuncio->id
+        ]);
+
+        $buscaSkill=BuscaSkill::create([
+            'skill_id'=>$skill6->id,
             'anuncio_id'=>$anuncio->id
         ]);
 

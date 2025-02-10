@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MesSuscripcion extends Model
+class Jornada extends Model
 {
     //
 }

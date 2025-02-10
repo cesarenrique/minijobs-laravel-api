@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluaciones', function (Blueprint $table) {
+        Schema::create('pais', function (Blueprint $table) {
             $table->id();
-            $table->Integer('anyo');
-            $table->Integer('mes');
             $table->string('nombre');
             $table->timestamps();
         });
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluaciones');
+        Schema::dropIfExists('pais');
     }
 };
