@@ -162,5 +162,19 @@ class UserTestSeeder extends Seeder
             'created_at'=>now(),
             'updated_at'=>now()
         ]);
+
+
+        DB::table('users')->insert([
+            'name' => 'Alumno3',
+            'username'=> 'Alumno3',
+            'NIF'=>'00380204IO',
+            'email'=>'alumno3@gmail.com',
+            'password'=>$hashed,
+            'ultimo_rol'=>0,
+            'email_verified_at'=>now(),
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
     }
 }

@@ -94,5 +94,12 @@ class UserRolTestSeeder extends Seeder
             'user_id'=>$mentor->id
         ]);
 
+        $alumno=User::where('username','like','Alumno3')->first();
+        DB::table('alumnos')->insert([
+            'user_id'=>$alumno->id
+        ]);
+        $alumno->ultimo_rol=1;
+        $alumno->update();
+
     }
 }
