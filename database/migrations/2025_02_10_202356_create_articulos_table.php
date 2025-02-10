@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('articulos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->integer('rol');
+            $table->integer('meses');
             $table->unsignedBigInteger('producto_id')->unique();
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->timestamps();

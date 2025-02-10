@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pago_suscripcions', function (Blueprint $table) {
+        Schema::create('user_limitacions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('suscripcion_id');
-            $table->unsignedBigInteger('articulo_id');
+            $table->string('fecha_limite_administrador')->nullable();
+            $table->string('fecha_limite_encargado')->nullable();
+            $table->string('fecha_limite_reclutador')->nullable();
+            $table->string('fecha_limite_profesor')->nullable();
+            $table->string('fecha_limite_alumno')->nullable();
+            $table->string('fecha_limite_mentor')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('suscripcion_id')->references('id')->on('suscripcions');
-            $table->foreign('articulo_id')->references('id')->on('articulos');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pago_suscripcions');
+        Schema::dropIfExists('user_limitacions');
     }
 };

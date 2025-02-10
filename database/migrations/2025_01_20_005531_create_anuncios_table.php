@@ -17,9 +17,9 @@ return new class extends Migration
             $table->text('descripcion');
             $table->Integer('estado'); //publicado o no / expirado
             $table->date('inicio');
-            $table->unsignedBigInteger('cargo_empresa_id');
+            $table->unsignedBigInteger('cargo_empresa_id')->nullable();
             $table->foreign('cargo_empresa_id')->references('id')->on('cargo_empresas');
-            $table->unsignedBigInteger('reclutador_id');
+            $table->unsignedBigInteger('reclutador_id')->nullable();
             $table->foreign('reclutador_id')->references('id')->on('reclutadors');
             $table->timestamps();
         });

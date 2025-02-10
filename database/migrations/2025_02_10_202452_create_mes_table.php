@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mes', function (Blueprint $table) {
             $table->id();
             $table->integer('mes');
-            $table->unsignedBigInteger('anyo_id')->unique();
+            $table->unsignedBigInteger('anyo_id');
             $table->foreign('anyo_id')->references('id')->on('anyos');
             $table->timestamps();
         });

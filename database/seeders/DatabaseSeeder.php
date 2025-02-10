@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserTestSeeder::class,
             UserRolTestSeeder::class,
             EmpresaSeeder::class,
+            AnunciosSeeder::class,
             CandidatoSeeder::class,
             CarrerasSeeder::class,
             SkillSinValidacionSeeder::class,

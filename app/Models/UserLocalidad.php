@@ -7,4 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class UserLocalidad extends Model
 {
     //
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+
+        'user_id',
+        'localidad_id',
+
+    ];
 }

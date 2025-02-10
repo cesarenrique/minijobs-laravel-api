@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suscripcions', function (Blueprint $table) {
+        Schema::create('anuncio_ofertas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->unsignedBigInteger('mes_id');
-            $table->foreign('mes_id')->references('id')->on('mes');
+            $table->unsignedBigInteger('anuncio_id');
+            $table->unsignedBigInteger('encargado_id')->nullable();
+            $table->foreign('anuncio_id')->references('id')->on('anuncios');
+            $table->foreign('encargado_id')->references('id')->on('encargados');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suscripcions');
+        Schema::dropIfExists('anuncio_ofertas');
     }
 };

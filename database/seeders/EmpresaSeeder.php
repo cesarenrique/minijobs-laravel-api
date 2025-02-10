@@ -79,6 +79,7 @@ class EmpresaSeeder extends Seeder
         $cargoEmpresa=CargoEmpresa::create([
             'cargo_id'=>$cargo->id,
             'empresa_id'=>$empresa->id,
+            'descripcion'=>'necesitamos una persona con las siguientes caracteristicas ...'
 
         ]);
 
@@ -105,6 +106,7 @@ class EmpresaSeeder extends Seeder
         $cargoEmpresa=CargoEmpresa::create([
             'cargo_id'=>$cargo->id,
             'empresa_id'=>$empresa->id,
+            'descripcion'=>'necesitamos una persona con las siguientes caracteristicas ...'
 
         ]);
 
@@ -128,6 +130,7 @@ class EmpresaSeeder extends Seeder
         $cargoEmpresa2=CargoEmpresa::create([
             'cargo_id'=>$cargo->id,
             'empresa_id'=>$empresa->id,
+            'descripcion'=>'necesitamos una persona con las siguientes caracteristicas ...'
 
         ]);
 

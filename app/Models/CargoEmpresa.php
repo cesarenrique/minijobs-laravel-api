@@ -16,6 +16,7 @@ class CargoEmpresa extends Model
     protected $fillable = [
         'cargo_id',
         'empresa_id',
+        'descripcion',
     ];
 
 }
