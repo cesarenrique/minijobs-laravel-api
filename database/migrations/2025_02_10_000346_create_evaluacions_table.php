@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->float('nota');
             $table->unsignedBigInteger('alumno_id');
-            $table->unsignedBigInteger('asignatura_id');
-            $table->foreign('asignatura_id')->references('id')->on('asignaturas');
+            $table->unsignedBigInteger('asignatura_carrera_id');
+            $table->foreign('asignatura_carrera_id')->references('id')->on('asignatura_carreras');
             $table->foreign('alumno_id')->references('id')->on('alumnos');
             $table->timestamps();
         });

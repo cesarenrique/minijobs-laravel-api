@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Evaluacion;
+use App\Models\Suscripcion;
 
-class EvaluacionController extends Controller
+class SuscripcionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,10 @@ class EvaluacionController extends Controller
     public function index()
     {
         //
-        $evaluaciones=Evaluacion::All();
-
+        $suscripciones=Suscripcion::All();
         return response()->json(
             ['data'=>[
-                'evaluaciones'=> $evaluaciones
+                'suscripciones'=> $suscripciones
                  ],
             ],200);
     }
@@ -44,11 +43,10 @@ class EvaluacionController extends Controller
     public function show(string $id)
     {
         //
-        $evaluacion=Evaluacion::findOrFail($id);
-
+        $suscripcion=Suscripcion::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'evaluacion'=> $evaluacion
+                'suscripcion'=> $suscripcion
                  ],
             ],200);
     }

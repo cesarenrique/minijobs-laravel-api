@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('asignatura_carreras', function (Blueprint $table) {
             $table->id();
+            $table->integer('bloque');
+            $table->string('tipo');
+            $table->unsignedBigInteger('centro_id')->nullable();
             $table->unsignedBigInteger('asignatura_id');
             $table->unsignedBigInteger('carrera_id');
             $table->unique(['asignatura_id','carrera_id']);
+            $table->foreign('centro_id')->references('id')->on('centros');
             $table->foreign('asignatura_id')->references('id')->on('asignaturas');
             $table->foreign('carrera_id')->references('id')->on('carreras');
             $table->timestamps();

@@ -13,6 +13,7 @@ use App\Models\SinRol;
 use App\Models\Administrador;
 use App\Models\TieneSkill;
 use App\Models\Skill;
+use App\Models\Mentor;
 
 class UserController extends Controller
 {
@@ -61,6 +62,7 @@ class UserController extends Controller
             'email'=>$request->email,
             'password'=>$hashed,
             'NIF'=>$request->NIF,
+            'estado'=>0,
             'ultimo_rol'=>0,
         ]);
 
@@ -87,11 +89,13 @@ class UserController extends Controller
         $reclutador=Reclutador::where('user_id','like',$user->id)->get();
         $encargado=Encargado::where('user_id','like',$user->id)->get();
         $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $mentor=Mentor::where('user_id','like',$user->id)->get();
         $alumnoEs=0;
         $profesorEs=0;
         $reclutadorEs=0;
         $encargadoEs=0;
         $administradorEs=0;
+        $mentorEs=0;
 
         if(count($alumno)>=1){
             $alumnoEs=1;
@@ -109,6 +113,10 @@ class UserController extends Controller
             $administradorEs=1;
         }
 
+        if(count($mentor)>=1){
+            $mentorEs=1;
+        }
+
         return response()->json(
             ['data'=>[
                 'user'=> $user,
@@ -116,7 +124,8 @@ class UserController extends Controller
                 'profesor'=> $profesorEs,
                 'reclutador'=>$reclutadorEs,
                 'encargado'=>$encargadoEs,
-                'administrador'=>$administradorEs
+                'administrador'=>$administradorEs,
+                'mentor'=>$mentorEs
             ],
             ],200);
     }
@@ -132,11 +141,13 @@ class UserController extends Controller
         $reclutador=Reclutador::where('user_id','like',$user->id)->get();
         $encargado=Encargado::where('user_id','like',$user->id)->get();
         $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $mentor=Mentor::where('user_id','like',$user->id)->get();
         $alumnoEs=0;
         $profesorEs=0;
         $reclutadorEs=0;
         $encargadoEs=0;
         $administradorEs=0;
+        $mentorEs=0;
 
         if(count($alumno)>=1){
             $alumnoEs=1;
@@ -153,12 +164,22 @@ class UserController extends Controller
         if(count($administrador)>=1){
             $administradorEs=1;
         }
+
+        if(count($mentor)>=1){
+            $mentorEs=1;
+        }
+
         $skills=[];
+        $aux=[];
         if($alumnoEs==1){
             $alumno=Alumno::where('user_id','like',$user->id)->first();
             $tieneSkills=TieneSkill::where('alumno_id','like',$alumno->id)->get();
             foreach($tieneSkills as $tieneSkill){
-                $skills[]=Skill::findOrFail($tieneSkill->skill_id);
+                $aux2=Skill::findOrFail($tieneSkill->skill_id);
+                if(!in_array($aux2->id,$aux)){
+                    $skills[]=$aux2;
+                    $aux[]=$aux2->id;
+                }
             }
         }
 
@@ -172,6 +193,7 @@ class UserController extends Controller
                 'reclutador'=>$reclutadorEs,
                 'encargado'=>$encargadoEs,
                 'administrador'=>$administradorEs,
+                'mentor'=>$mentorEs,
                 'skills'=>$skills
             ],
             ],200);
@@ -185,11 +207,13 @@ class UserController extends Controller
         $reclutador=Reclutador::where('user_id','like',$user->id)->get();
         $encargado=Encargado::where('user_id','like',$user->id)->get();
         $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $mentor=Mentor::where('user_id','like',$user->id)->get();
         $alumnoEs=0;
         $profesorEs=0;
         $reclutadorEs=0;
         $encargadoEs=0;
         $administradorEs=0;
+        $mentorEs=0;
         if(count($alumno)>=1){
             $alumnoEs=1;
         }
@@ -205,6 +229,9 @@ class UserController extends Controller
         if(count($administrador)>=1){
             $administradorEs=1;
         }
+        if(count($mentor)>=1){
+            $mentorEs=1;
+        }
 
         return response()->json(
             ['data'=>[
@@ -214,7 +241,8 @@ class UserController extends Controller
                 'profesor'=> $profesorEs,
                 'reclutador'=>$reclutadorEs,
                 'encargado'=>$encargadoEs,
-                'administrador'=>$administradorEs
+                'administrador'=>$administradorEs,
+                'mentor'=>$mentorEs
             ],
             ],200);
     }
@@ -253,11 +281,13 @@ class UserController extends Controller
         $reclutador=Reclutador::where('user_id','like',$user->id)->get();
         $encargado=Encargado::where('user_id','like',$user->id)->get();
         $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $mentor=Mentor::where('user_id','like',$user->id)->get();
         $alumnoEs=0;
         $profesorEs=0;
         $reclutadorEs=0;
         $encargadoEs=0;
         $administradorEs=0;
+        $mentorEs=0;
         if(count($alumno)>=1){
             $alumnoEs=1;
         }
@@ -273,6 +303,9 @@ class UserController extends Controller
         if(count($administrador)>=1){
             $administradorEs=1;
         }
+        if(count($mentor)>=1){
+            $mentorEs=1;
+        }
 
         return response()->json(
             ['data'=>[
@@ -282,7 +315,8 @@ class UserController extends Controller
                 'profesor'=> $profesorEs,
                 'reclutador'=>$reclutadorEs,
                 'encargado'=>$encargadoEs,
-                'administrador'=>$administradorEs
+                'administrador'=>$administradorEs,
+                'mentor'=>$mentorEs
             ],
             ],200);
     }
@@ -309,11 +343,14 @@ class UserController extends Controller
         $reclutador=Reclutador::where('user_id','like',$user->id)->get();
         $encargado=Encargado::where('user_id','like',$user->id)->get();
         $administrador=Administrador::where('user_id','like',$user->id)->get();
+        $mentor=Mentor::where('user_id','like',$user->id)->get();
+
         $alumnoEs=0;
         $profesorEs=0;
         $reclutadorEs=0;
         $encargadoEs=0;
         $administradorEs=0;
+        $mentorEs=0;
         if(count($alumno)>=1){
             $alumnoEs=1;
         }
@@ -329,6 +366,9 @@ class UserController extends Controller
         if(count($administrador)>=1){
             $administradorEs=1;
         }
+        if(count($mentor)>=1){
+            $mentorEs=1;
+        }
 
         return response()->json(
             ['data'=>[
@@ -338,7 +378,8 @@ class UserController extends Controller
                 'profesor'=> $profesorEs,
                 'reclutador'=>$reclutadorEs,
                 'encargado'=>$encargadoEs,
-                'administrador'=>$administradorEs
+                'administrador'=>$administradorEs,
+                'mentor'=>$mentorEs
             ],
             ],200);
     }

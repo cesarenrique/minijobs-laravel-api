@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Evaluacion;
+use App\Models\Articulo;
 
-class EvaluacionController extends Controller
+class ArticuloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,10 @@ class EvaluacionController extends Controller
     public function index()
     {
         //
-        $evaluaciones=Evaluacion::All();
-
+        $articulos=Articulo::All();
         return response()->json(
             ['data'=>[
-                'evaluaciones'=> $evaluaciones
+                'articulos'=> $articulos
                  ],
             ],200);
     }
@@ -44,11 +43,10 @@ class EvaluacionController extends Controller
     public function show(string $id)
     {
         //
-        $evaluacion=Evaluacion::findOrFail($id);
-
+        $articulo=Articulo::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'evaluacion'=> $evaluacion
+                'articulo'=> $articulo
                  ],
             ],200);
     }

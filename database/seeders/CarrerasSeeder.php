@@ -8,12 +8,11 @@ use App\Models\AnyoPlanAcademico;
 use App\Models\Centro;
 use App\Models\CarreraCentro;
 use App\Models\AsignaturaCarrera;
-use App\Models\AsignaturaCentro;
 use App\Models\Carrera;
 use App\Models\Asignatura;
 use App\Models\TipoCarrera;
 use App\Models\TipoRamaCarrera;
-
+use App\Models\NumeroControl;
 class CarrerasSeeder extends Seeder
 {
     /**
@@ -21,6 +20,11 @@ class CarrerasSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $numeroControl=NumeroControl::create([
+            'control_bloque'=>1
+        ]);
+
         $tipoCarrera=TipoCarrera::create([
             'nombre'=>'Tecnico Superior'
         ]);
@@ -73,24 +77,21 @@ class CarrerasSeeder extends Seeder
 
         $i=0;
         $tam=count($asignaturaArray);
+
         while($i<$tam ){
             $asignatura=Asignatura::create([
                 'nombre'=>$asignaturaArray[$i],
-                'tipo'=>0,
-                'particular'=>'Universal'
             ]);
             $i++;
 
             $asignaturaCarrera=AsignaturaCarrera::create([
                 'asignatura_id'=>$asignatura->id,
-                'carrera_id'=>$carrera->id
+                'carrera_id'=>$carrera->id,
+                'bloque'=>$numeroControl->control_bloque,
+                'tipo'=>'Obligatoria',
+                'centro_id'=>null
             ]);
 
-            $asignaturaCentro=AsignaturaCentro::create([
-                'asignatura_id'=>$asignatura->id,
-                'centro_id'=>$centro->id,
-                'carrera_id'=>$carrera->id
-            ]);
 
         }
 

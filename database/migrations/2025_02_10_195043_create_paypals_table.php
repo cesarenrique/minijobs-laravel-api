@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modelo_asignaturas', function (Blueprint $table) {
+        Schema::create('paypals', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->unsignedBigInteger('modelo_carrera_id');
-            $table->foreign('modelo_carrera_id')->references('id')->on('modelo_carreras');
+            $table->string('email');
+            $table->unsignedBigInteger('forma_pago_id')->unique();
+            $table->foreign('forma_pago_id')->references('id')->on('forma_pagos');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modelo_asignaturas');
+        Schema::dropIfExists('paypals');
     }
 };

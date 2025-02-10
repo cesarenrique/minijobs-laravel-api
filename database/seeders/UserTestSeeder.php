@@ -24,6 +24,7 @@ class UserTestSeeder extends Seeder
             'email'=>'administrador@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -36,6 +37,7 @@ class UserTestSeeder extends Seeder
             'email'=>'alumno@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -48,6 +50,7 @@ class UserTestSeeder extends Seeder
             'email'=>'profesor@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -60,6 +63,7 @@ class UserTestSeeder extends Seeder
             'email'=>'encargado@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -72,6 +76,7 @@ class UserTestSeeder extends Seeder
             'email'=>'reclutador@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -84,6 +89,7 @@ class UserTestSeeder extends Seeder
             'email'=>'mentor@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -96,6 +102,7 @@ class UserTestSeeder extends Seeder
             'email'=>'muestra@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -110,6 +117,7 @@ class UserTestSeeder extends Seeder
             'email'=>'alumno2@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -122,6 +130,7 @@ class UserTestSeeder extends Seeder
             'email'=>'profesor2@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -134,6 +143,7 @@ class UserTestSeeder extends Seeder
             'email'=>'encargado2@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -146,6 +156,7 @@ class UserTestSeeder extends Seeder
             'email'=>'reclutador2@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -158,6 +169,7 @@ class UserTestSeeder extends Seeder
             'email'=>'mentor2@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()
@@ -171,6 +183,7 @@ class UserTestSeeder extends Seeder
             'email'=>'alumno3@gmail.com',
             'password'=>$hashed,
             'ultimo_rol'=>0,
+            'estado'=>0,
             'email_verified_at'=>now(),
             'created_at'=>now(),
             'updated_at'=>now()

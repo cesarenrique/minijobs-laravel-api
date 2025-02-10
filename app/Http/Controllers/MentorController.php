@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Evaluacion;
+use App\Models\Mentor;
 
-class EvaluacionController extends Controller
+class MentorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,10 @@ class EvaluacionController extends Controller
     public function index()
     {
         //
-        $evaluaciones=Evaluacion::All();
-
+        $mentores=Mentor::All();
         return response()->json(
             ['data'=>[
-                'evaluaciones'=> $evaluaciones
+                'mentores'=> $mentores
                  ],
             ],200);
     }
@@ -36,6 +35,33 @@ class EvaluacionController extends Controller
     public function store(Request $request)
     {
         //
+
+        $validated=$request->validate([
+            'user_id'=>'required'
+        ]);
+
+        $user=User::findOrFail($request->user_id);
+
+        $existe2=SinRol::where('user_id',$request->user_id)->get();
+
+        if(count($existe2)>=1){
+            $existe2->first()->delete();
+        }
+
+        $mentor=Mentor::create([
+            'user_id'=>$request->user_id
+        ]);
+
+
+        $user->ultimo_rol=6;
+
+        $user->update();
+
+        return response()->json(
+            ['data'=>[
+                'mentor'=> $mentor
+                 ],
+            ],200);
     }
 
     /**
@@ -44,11 +70,10 @@ class EvaluacionController extends Controller
     public function show(string $id)
     {
         //
-        $evaluacion=Evaluacion::findOrFail($id);
-
+        $mentor=Mentor::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'evaluacion'=> $evaluacion
+                'mentor'=> $mentor
                  ],
             ],200);
     }

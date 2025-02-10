@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Evaluacion;
-
-class EvaluacionController extends Controller
+use App\Models\Tarjeta;
+class TarjetaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +12,10 @@ class EvaluacionController extends Controller
     public function index()
     {
         //
-        $evaluaciones=Evaluacion::All();
-
+        $tarjetas=Tarjeta::All();
         return response()->json(
             ['data'=>[
-                'evaluaciones'=> $evaluaciones
+                'tarjetas'=> $tarjetas
                  ],
             ],200);
     }
@@ -44,11 +42,10 @@ class EvaluacionController extends Controller
     public function show(string $id)
     {
         //
-        $evaluacion=Evaluacion::findOrFail($id);
-
+        $tarjeta=Tarjeta::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'evaluacion'=> $evaluacion
+                'tarjeta'=> $tarjeta
                  ],
             ],200);
     }

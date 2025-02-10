@@ -29,6 +29,16 @@ use App\Http\Controllers\EspecializadaController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TieneSkillController;
+use App\Http\Controllers\EvaluacionController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\FormaPagoController;
+use App\Http\Controllers\TarjetaController;
+use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\AnyoController;
+use App\Http\Controllers\MesController;
+use App\Http\Controllers\SuscripcionController;
+use App\Http\Controllers\PagoSuscripcionController;
+use App\Http\Controllers\PagoLimitacionController;
 /*
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -60,8 +70,9 @@ Route::get('/reclutador/user/{idUser}', [ReclutadorController::class,'showUser']
 Route::get('/reclutador/{id}/anuncios', [ReclutadorController::class,'anuncios']);
 Route::get('/anuncio/{id}/complete', [AnuncioController::class,'showComplete']);
 
-Route::get('/alumno/{idAlumno}/user', [AlumnoController::class,'showUserComplete']);
+Route::get('/alumno/{id}/user', [AlumnoController::class,'showUserComplete']);
 Route::get('/alumno/user/{idUser}', [AlumnoController::class,'showUser']);
+Route::get('/alumno/{id}/evaluacion', [AlumnoController::class,'showEvaluacion']);
 
 Route::get('/empresareclutador/existe/{idEmpresa}/{idReclutador}', [EmpresaReclutadorController::class,'showExiste']);
 Route::get('/cargoempresa/existe/{idEmpresa}/{idCargo}', [CargoEmpresaController::class,'showExiste']);
@@ -93,6 +104,7 @@ Route::resource('/administrador', AdministradorController::class);
 Route::resource('/reclutador', ReclutadorController::class);
 Route::resource('/profesor', ProfesorController::class);
 Route::resource('/alumno', AlumnoController::class);
+Route::resource('/mentor', MentorController::class);
 Route::resource('/sinrol', SinRolController::class);
 Route::resource('/empresa', EmpresaController::class);
 Route::resource('/cargo', CargoController::class);
@@ -111,3 +123,12 @@ Route::resource('/sector',SectorController::class);
 Route::resource('/empresaespecializada',EmpresaEspecializadaController::class);
 Route::resource('/skill',SkillController::class);
 Route::resource('/tieneskill',TieneSkillController::class);
+Route::resource('/evaluacion',EvaluacionController::class);
+Route::resource('/formapago',FormaPagoController::class);
+Route::resource('/tarjeta',TarjetaController::class);
+Route::resource('/paypal',PaypalController::class);
+Route::resource('/anyo',AnyoController::class);
+Route::resource('/mes',MesController::class);
+Route::resource('/suscripcion',SuscripcionController::class);
+Route::resource('/pagosuscripcion',PagoSuscripcionController::class);
+Route::resource('/pagolimitacion',PagoLimitacionController::class);

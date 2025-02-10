@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Alumno;
 use App\Models\User;
 use App\Models\SinRol;
+use App\Models\Evaluacion;
+use App\Models\AsignaturaCarrera;
+use App\Models\Asignatura;
+use App\Models\Carrera;
 
 class AlumnoController extends Controller
 {
@@ -110,15 +114,49 @@ class AlumnoController extends Controller
         /**
      * Display the specified resource.
      */
-    public function showUserComplete(string $idEncargado)
+    public function showUserComplete(string $id)
     {
         //
 
-        $alumno=Alumno::findOrFail($idEncargado);
+        $alumno=Alumno::findOrFail($id);
         $user=User::findOrFail($alumno->user_id);
         return response()->json(
             ['data'=>[
                 'user'=> $user
+                 ],
+            ],200);
+    }
+
+
+            /**
+     * Display the specified resource.
+     */
+    public function showEvaluacion(string $id)
+    {
+        //
+
+        $alumno=Alumno::findOrFail($id);
+        $user=User::findOrFail($alumno->user_id);
+        $evaluaciones=Evaluacion::where('alumno_id','like',$alumno->id)->get();
+        $asignaturas=[];
+        $carreras=[];
+        $asignaturaCarreras=[];
+        $i=0;
+        foreach($evaluaciones as $evaluacion){
+            $asignaturaCarreras[]=AsignaturaCarrera::findOrFail($evaluacion->asignatura_carrera_id);
+            $asignaturas[]=Asignatura::findOrFail($asignaturaCarreras[$i]->asignatura_id);
+            $carreras[]=Carrera::findOrfail($asignaturaCarreras[$i]->carrera_id);
+            $i++;
+        }
+
+        return response()->json(
+            ['data'=>[
+                'user'=> $user,
+                'alumno'=>$alumno,
+                'carreras'=>$carreras,
+                'evaluaciones'=>$evaluaciones,
+                'asignaturaCarreras'=>$asignaturaCarreras,
+                'asignaturas'=>$asignaturas
                  ],
             ],200);
     }

@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignaturas', function (Blueprint $table) {
+        Schema::create('tarjetas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('numero');
+            $table->string('mes');
+            $table->string('anyo');
+            $table->string('clave');
+            $table->unsignedBigInteger('forma_pago_id')->unique();
+            $table->foreign('forma_pago_id')->references('id')->on('forma_pagos');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignaturas');
+        Schema::dropIfExists('tarjetas');
     }
 };

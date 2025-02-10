@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Evaluacion;
+use App\Models\PagoLimitacion;
 
-class EvaluacionController extends Controller
+class PagoLimitacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,10 @@ class EvaluacionController extends Controller
     public function index()
     {
         //
-        $evaluaciones=Evaluacion::All();
-
+        $pagoLimitaciones=PagoLimitacion::All();
         return response()->json(
             ['data'=>[
-                'evaluaciones'=> $evaluaciones
+                'pagoLimitaciones'=> $pagoLimitaciones
                  ],
             ],200);
     }
@@ -44,11 +43,10 @@ class EvaluacionController extends Controller
     public function show(string $id)
     {
         //
-        $evaluacion=Evaluacion::findOrFail($id);
-
+        $pagoLimitacion=PagoLimitacion::findOrFail($id);
         return response()->json(
             ['data'=>[
-                'evaluacion'=> $evaluacion
+                'pagoLimitacion'=> $pagoLimitacion
                  ],
             ],200);
     }

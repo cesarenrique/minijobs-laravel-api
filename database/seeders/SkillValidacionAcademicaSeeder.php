@@ -9,8 +9,13 @@ use App\Models\Alumno;
 use App\Models\Asignatura;
 use App\Models\Evaluacion;
 use App\Models\TieneSkillExperiencia;
+use App\Models\TieneSkill;
 use App\Models\SkillAsignatura;
 use App\Models\Skill;
+use App\Models\Carrera;
+use App\Models\TieneTitulo;
+use App\Models\AsignaturaCarrera;
+
 
 class SkillValidacionAcademicaSeeder extends Seeder
 {
@@ -44,13 +49,22 @@ class SkillValidacionAcademicaSeeder extends Seeder
         $user=User::where('username','like','Alumno')->first();
         $alumno=Alumno::where('user_id','like',$user->id)->first();
 
+        $carrera=Carrera::where('nombre','like','Tecnico Superior Administración Sistemas Informáticos en Red')->first();
+
+        $tieneTitulo=TieneTitulo::create([
+            'alumno_id'=>$alumno->id,
+            'carrera_id'=>$carrera->id,
+        ]);
+
         $i=0;
         $tam=count($asignaturaArray);
         while($i<$tam ){
             $asignatura=Asignatura::where('nombre','like',$asignaturaArray[$i])->first();
+            $asignaturaCarrera=AsignaturaCarrera::where('asignatura_id','like',$asignatura->id)
+            ->where('carrera_id','like',$carrera->id)->first();
             $evaluacion=Evaluacion::create([
                 'alumno_id'=>$alumno->id,
-                'asignatura_id'=>$asignatura->id,
+                'asignatura_carrera_id'=>$asignaturaCarrera->id,
                 'nota'=>8,
             ]);
 
@@ -103,8 +117,10 @@ class SkillValidacionAcademicaSeeder extends Seeder
                     'asignatura_id'=>$asignatura->id,
                     'skill_id'=>$skill->id
                 ]);
+            $asignaturaCarrera=AsignaturaCarrera::where('asignatura_id','like',$asignatura->id)
+                ->where('carrera_id','like',$carrera->id)->first();
 
-            $evaluacion=Evaluacion::where('asignatura_id','like',$asignatura->id)
+            $evaluacion=Evaluacion::where('asignatura_carrera_id','like',$asignaturaCarrera->id)
             ->where('alumno_id','like',$alumno->id)->first();
 
             $tieneSkillExperiencia=TieneSkillExperiencia::create([
@@ -118,6 +134,11 @@ class SkillValidacionAcademicaSeeder extends Seeder
                 'profesor_id'=>null,
                 'empresa_cargo_experiencia_id'=>null,
                 'mentor_id'=>null
+            ]);
+
+            $tieneSkill=TieneSkill::create([
+                'alumno_id'=>$alumno->id,
+                'skill_id'=>$skill->id,
             ]);
 
             $i++;

@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modelo_carreras', function (Blueprint $table) {
+        Schema::create('mes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->integer('mes');
+            $table->unsignedBigInteger('anyo_id')->unique();
+            $table->foreign('anyo_id')->references('id')->on('anyos');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modelo_carreras');
+        Schema::dropIfExists('mes');
     }
 };

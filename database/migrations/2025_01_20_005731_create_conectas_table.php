@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('conectas', function (Blueprint $table) {
             $table->id();
+            $table->integer('estado');
             $table->unsignedBigInteger('user_principal_id');
             $table->unsignedBigInteger('user_otra_id');
             $table->unique(['user_principal_id','user_otra_id']);
