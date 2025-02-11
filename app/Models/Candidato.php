@@ -16,9 +16,11 @@ class Candidato extends Model
         'alumno_id',
         'anuncio_id',
         'puntuacion_academica',
-        'puntuación_experiencia',
-        'puntuación_skill',
+        'puntuacion_experiencia',
+        'puntuacion_personal',
+        'puntuacion_mentor',
         'test_skills',
     ];
+
 
 }

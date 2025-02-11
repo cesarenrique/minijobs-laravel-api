@@ -49,10 +49,12 @@ class CandidatoController extends Controller
             'anuncio_id'=>$request->anuncio_id,
             'alumno_id'=>$request->alumno_id,
             'puntuacion_academica'=>floatval(0),
-            'puntuación_experiencia'=>floatval(0),
-            'puntuación_skill'=>floatval(0),
+            'puntuacion_experiencia'=>floatval(0),
+            'puntuacion_personal'=>floatval(0),
+            'puntuacion_mentor'=>floatval(0),
             'test_skills'=>floatval(0),
         ]);
+
 
 
         return response()->json(

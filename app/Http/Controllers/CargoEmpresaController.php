@@ -38,13 +38,13 @@ class CargoEmpresaController extends Controller
         $validated=$request->validate([
             'cargo_id'=>'required',
             'empresa_id'=>'required',
-
+            'descripcion'=>'required',
         ]);
 
         $cargoEmpresa=CargoEmpresa::create([
             'cargo_id'=>$request->cargo_id,
             'empresa_id'=>$request->empresa_id,
-
+            'descripcion'=>$request->descripcion,
         ]);
 
 

@@ -19,12 +19,15 @@ class EmpresaAnuncioController extends Controller
     public function indexAnuncios($id)
     {
         //
+
         $empresacargos=CargoEmpresa::where('empresa_id','like',$id)->get();
         $anuncios=[];
         if(count($empresacargos)>=1){
             foreach($empresacargos as $empresacargo){
-                $anuncios[]=Anuncio::Where('cargo_empresa_id','like',$empresacargo->id)->firstOrFail();
-
+                $aux=Anuncio::Where('cargo_empresa_id','like',$empresacargo->id)->get();
+                if(count($aux)>=1){
+                    $anuncios[]=$aux->firstOrFail();
+                }
             }
         }
         return response()->json(

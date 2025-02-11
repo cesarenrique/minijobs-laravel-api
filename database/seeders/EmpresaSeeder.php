@@ -122,7 +122,7 @@ class EmpresaSeeder extends Seeder
         ]);
 
         $cargo=Cargo::create([
-            'titulo'=>'Colocador de Fibra Optica Mentas',
+            'titulo'=>'Colocador de Fibra Optica Mental',
             'descripcion'=>'Colocador de fibra mental',
 
         ]);
